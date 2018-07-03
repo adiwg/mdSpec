@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'md-spec',
+    modulePrefix: 'mdspec',
     environment,
     rootURL: '/',
     locationType: 'auto',

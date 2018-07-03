@@ -1,0 +1,38 @@
+.sidebar {
+  background: $gray-200;
+  flex: 0 0 auto;
+  max-width: 50%;
+  min-height: 200px;
+  min-width: 150px;
+  white-space: nowrap;
+  width: 300px;
+
+  .sidebar-sticky {
+    height: calc(100vh - 60px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: .5rem;
+    position: sticky;
+    top: 60px;
+  }
+}
+
+.splitter {
+  background-color: lighten($primary, 45);
+  box-shadow: inset -1px 0 0 rgba($primary, .1);
+  cursor: col-resize;
+  flex: 0 0 auto;
+  min-height: 200px;
+  width: 16px;
+
+  &:hover {
+    background-color: lighten($primary, 42);
+  }
+}
+
+main {
+  flex: 1 1 auto;
+  min-height: 200px;
+  min-width: 200px;
+  width: 100%;
+}
