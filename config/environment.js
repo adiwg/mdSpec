@@ -4,6 +4,7 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'mdspec',
     environment,
+    emberPouch: {},
     rootURL: '/',
     locationType: 'auto',
     EmberENV: {
@@ -29,6 +30,9 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+    ENV.emberPouch.localDb = 'dev';
+    //ENV.emberPouch.remoteDb = 'http://localhost:5984/my_couch';
   }
 
   if (environment === 'test') {
