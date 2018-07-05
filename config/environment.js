@@ -3,6 +3,7 @@
 module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'mdspec',
+    podModulePrefix: 'mdspec/pods',
     environment,
     emberPouch: {},
     rootURL: '/',
