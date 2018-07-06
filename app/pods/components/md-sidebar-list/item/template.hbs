@@ -1,0 +1,11 @@
+<div class="md-item-wrapper text-truncate" style={{padding}}>
+  {{levelText}} {{#link-to "module" model}}{{model.title}}{{/link-to}}
+</div>
+
+  {{#if model.children.length}}
+    {{md-sidebar-list model=model.children parentItem=this}}
+  {{/if}}
+
+{{!-- {{#each model.children as |child|}}
+  {{md-sidebar-list/item model=child}}
+{{/each}} --}}

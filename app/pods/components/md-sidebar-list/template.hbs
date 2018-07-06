@@ -1,1 +1,3 @@
-{{yield}}
+{{#each model as |mod index|}}
+  {{md-sidebar-list/item model=mod parentItem=parentItem index=index}}
+{{/each}}

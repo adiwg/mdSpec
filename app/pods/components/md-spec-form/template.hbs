@@ -1,0 +1,22 @@
+{{yield}}
+
+{{#bs-form formLayout="horizontal" model=model onSubmit=(action "submit") as |form|}}
+  {{form.element controlType="text" label="Title" property="title"}}
+  {{form.element controlType="textarea" label="Purpose" property="purpose"}}
+  {{form.element controlType="textarea" label="Description" property="description"}}
+  {{form.element controlType="textarea" label="Use" property="use"}}
+  {{form.element controlType="text" label="Contact" property="contact"}}
+  {{#form.element controlType="power-select" property="presence"
+    placeholder="Choose one" label="Presence" options=presenceOpts as |el|}}
+    {{el.control searchEnabled=false}}
+  {{/form.element}}
+  {{form.element controlType="text" label="Mapping" property="mapping"}}
+  {{form.element controlType="checkbox" label="Is property?" property="isProperty"}}
+
+  {{#bs-button type="success" buttonType="submit" disabled=submitDisabled}}
+    {{fa-icon "save"}} Save
+  {{/bs-button}}
+  {{#bs-button type="danger" buttonType="delete"}}
+    {{fa-icon "trash"}} Delete
+  {{/bs-button}}
+{{/bs-form}}

@@ -15,25 +15,23 @@
   {{/navbar.content}}
 {{/bs-navbar}}
 
-<div class="container-fluid d-flex flex-row">
+<div class="d-flex flex-row">
   {{!-- <div class="row"> --}}
     <nav class="d-md-flex d-none bg-light sidebar">
-      <div class="sidebar-sticky">
+      <div class="sidebar-sticky w-100">
         {{#bs-nav type="" justified=true class="sticky-top" as |nav|}}
-              {{#nav.item}}
-                 {{#nav.link-to "index"}}Foo{{/nav.link-to}}
-              {{/nav.item}}
-              {{#nav.item}}
-                {{#nav.link-to "application"}}Bar{{/nav.link-to}}
-              {{/nav.item}}
-            {{/bs-nav}}
+          {{#nav.item}}
+             {{#nav.link-to "index"}}Foo{{/nav.link-to}}
+          {{/nav.item}}
+          {{#nav.item}}
+            {{#nav.link-to "application"}}Bar{{/nav.link-to}}
+          {{/nav.item}}
+        {{/bs-nav}}
+        {{md-sidebar-list model=model}}
       </div>
     </nav>
     {{md-splitter "||" ".sidebar" class="d-none d-md-block"}}
     <main role="main" class="d-flex pt-3 px-4">
-    <p>
-      {{fa-icon 'coffee'}} Main
-    </p>
       {{outlet}}
     </main>
   {{!-- </div> --}}

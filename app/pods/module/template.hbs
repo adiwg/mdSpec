@@ -1,1 +1,14 @@
-{{outlet}}
+<div class="container-fluid">
+  <h2>
+    {{fa-icon "cubes"}} Module: <span class="text-primary">{{model.title}}</span>
+  </h2>
+  <hr>
+
+  <div class="mt-5">
+    {{md-spec-form model=model}}
+  </div>
+
+  <div class="">
+    {{outlet}}
+  </div>
+</div>
