@@ -1,0 +1,29 @@
+{{!-- <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td> {{form.element controlType="text" placeholder="Enter title" property="title"}}</td>
+      <td>Otto</td>
+      <td>{{bs-button defaultText="Delete" type="danger" buttonType="button"}}</td>
+    </tr>
+  </tbody>
+</table> --}}
+<div class="btn-toolbar my-4" role="toolbar">
+  {{#bs-button type="success" onClick=(action addRequirement)}}
+    {{fa-icon "plus"}} Add Requirement {{fa-icon "check"}}
+  {{/bs-button}}
+</div>
+
+<div class="list-group">
+  {{#each model as |item|}}
+    {{md-requirement model=item}}
+  {{/each}}
+</div>

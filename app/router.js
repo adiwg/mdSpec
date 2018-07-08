@@ -7,8 +7,19 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function () {
-  this.route('module', {
-    path: '/module/:module_id'
+  this.route('module', function() {
+    this.route('new');
+    this.route('edit', {
+      path: '/:module_id'
+    }, function() {});
+  });
+  this.route('component', function() {
+    this.route('new', {
+      path: 'new/:parent_id'
+    });
+    this.route('edit', {
+      path: '/:component_id'
+    }, function() {});
   });
 });
 

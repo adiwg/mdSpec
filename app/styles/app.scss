@@ -3,4 +3,8 @@
 
 @import 'layout';
 
-@import "ember-power-select";
+@import 'ember-power-select';
+
+.cursor-pointer {
+  cursor: pointer;
+}

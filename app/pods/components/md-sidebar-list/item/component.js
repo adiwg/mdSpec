@@ -10,6 +10,12 @@ export default Component.extend({
   tagName: 'li',
   classNames: ['list-group-item'],
 
+  type: computed('parentItem', function () {
+    let parent = this.get('parentItem');
+
+    return parent ? 'component' : 'module';
+  }),
+
   level: computed('parent.level', function () {
     let parent = this.get('parentItem');
 

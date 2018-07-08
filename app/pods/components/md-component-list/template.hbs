@@ -1,0 +1,14 @@
+<div class="btn-toolbar my-4" role="toolbar">
+  {{#link-to "component.new" model.id tagName="button" class="btn btn-success"}}
+    {{fa-icon "plus"}} Add Component {{fa-icon "cube"}}
+  {{/link-to}}
+</div>
+
+<div class="list-group">
+  {{#each model.children as |item|}}
+    {{#link-to 'component.edit' item.id class="list-group-item list-group-item-action flex-column align-items-start"}}
+      <h5 class="mb-1">{{item.title}}</h5>
+      <p class="mb-1">{{item.description}}</p>
+    {{/link-to}}
+  {{/each}}
+</div>

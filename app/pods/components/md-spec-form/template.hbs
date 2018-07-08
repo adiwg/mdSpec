@@ -13,10 +13,14 @@
   {{form.element controlType="text" label="Mapping" property="mapping"}}
   {{form.element controlType="checkbox" label="Is property?" property="isProperty"}}
 
-  {{#bs-button type="success" buttonType="submit" disabled=submitDisabled}}
+  <hr>
+<div class="btn-toolbar" role="toolbar">
+
+  {{#bs-button class="mr-1" type="success" buttonType="submit" disabled=submitDisabled}}
     {{fa-icon "save"}} Save
   {{/bs-button}}
-  {{#bs-button type="danger" buttonType="delete"}}
+  {{#bs-button type="danger" buttonType="button" onClick=(action "delete")}}
     {{fa-icon "trash"}} Delete
   {{/bs-button}}
+</div>
 {{/bs-form}}

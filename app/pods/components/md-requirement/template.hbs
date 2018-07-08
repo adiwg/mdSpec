@@ -1,0 +1,25 @@
+{{#unless isEditing}}
+<div class="cursor-pointer" onClick-{{action (mut editing) true}}>
+  <h5 class="mb-1">{{model.title}}</h5>
+  <p class="mb-1">{{model.description}}</p>
+</div>
+{{else}}
+  {{#bs-form formLayout="horizontal" model=model onSubmit=(action "submit") as |form|}}
+    {{form.element controlType="input" label="Title" placeholder="Title" property="title"}}
+    {{form.element controlType="textarea" label="Description" placeholder="Description" property="description"}}
+
+      {{#bs-button class="mr-1" type="success" buttonType="submit" disabled=submitDisabled}}
+        {{fa-icon "save"}} Save
+      {{/bs-button}}
+
+      {{#unless model.isNew}}
+      {{#bs-button class="mr-1" type="info" buttonType="button" onClick=(action (mut editing) false)}}
+        {{fa-icon "undo"}} Cancel
+      {{/bs-button}}
+      {{/unless}}
+
+      {{#bs-button type="danger" buttonType="button" onClick=(action "delete")}}
+        {{fa-icon "trash"}} Delete
+      {{/bs-button}}
+  {{/bs-form}}
+{{/unless}}

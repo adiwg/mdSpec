@@ -11,7 +11,6 @@
     height: calc(100vh - 60px);
     overflow-x: hidden;
     overflow-y: auto;
-    padding-top: .5rem;
     position: sticky;
     top: 60px;
 
@@ -23,8 +22,28 @@
       padding: 0;
 
       .md-item-wrapper {
+        color: $primary;
         padding-bottom: .75rem;
         padding-top: .75rem;
+
+        .text-level {
+          color: $gray-500;
+        }
+
+        &:hover {
+          background-color: lighten($primary, 47);
+          cursor: pointer;
+        }
+
+        &.active {
+          background-color: lighten($primary, 10);
+          color: $white;
+          cursor: default;
+
+          .text-level {
+            color: $gray-300;
+          }
+        }
       }
     }
   }
