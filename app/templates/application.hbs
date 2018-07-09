@@ -2,10 +2,12 @@
   {{#link-to "index" class="navbar-brand"}}{{fa-icon "pen-square"}} mdSpec{{/link-to}}
   {{navbar.toggle}}
   {{#navbar.content}}
-    {{#navbar.nav class="mr-auto" as |nav|}}
+    {{#navbar.nav class="mr-5" as |nav|}}
       {{#nav.item}}{{#nav.link-to "index"}}Getting Started{{/nav.link-to}}{{/nav.item}}
       {{!-- {{#nav.item}}{{#nav.link-to "index"}}Components{{/nav.link-to}}{{/nav.item}}
       {{#nav.item}}<a href="/api" class="nav-link">API</a>{{/nav.item}} --}}
+    {{/navbar.nav}}
+    {{#navbar.nav class="mr-auto" as |nav|}}
       {{#nav.item}}
         {{#bs-button type="outline-light" onClick=(action "saveDb")}}
           {{fa-icon "download"}} Save

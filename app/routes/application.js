@@ -16,7 +16,7 @@ export default Route.extend({
   },
   actions: {
     error(error) {
-      Logger.error(error);
+      //Logger.error(error);
 
       if(error.status === 404) {
         return this.transitionTo('not-found');

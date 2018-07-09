@@ -23,7 +23,7 @@ export default Controller.extend({
       });
 
       db.dump(stream).then(function () {
-        console.log('Yay, I have a dumpedString: ' + dumpedString);
+        //console.log('Yay, I have a dumpedString: ' + dumpedString);
         FileSaver.saveAs(
           new Blob([JSON.stringify(dumpedString)], {
             type: 'application/json;charset=utf-8'
@@ -31,7 +31,7 @@ export default Controller.extend({
           `mdspec-${moment().format('YYYYMMDD-HHMMSS')}.json`
         );
       }).catch(function (err) {
-        console.log('oh no an error', err);
+        console.log('Error saving db!', err);
       });
     }
   }

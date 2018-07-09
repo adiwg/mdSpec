@@ -26,11 +26,11 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.APP.LOG_RESOLVER = true;
+    ENV.APP.LOG_ACTIVE_GENERATION = true;
+    ENV.APP.LOG_TRANSITIONS = true;
+    ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    ENV.APP.LOG_VIEW_LOOKUPS = true;
 
     ENV.emberPouch.localDb = 'dev';
     //ENV.emberPouch.remoteDb = 'http://localhost:5984/my_couch';
@@ -48,9 +48,17 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
-  if (environment === 'production') {
-    // here you can enable a production-specific feature
+  if (environment === 'staging') {
+    ENV.rootURL = '/mdSpec';
+    ENV.locationType = 'hash';
   }
 
+  if (environment === 'production') {
+    // here you can enable a production-specific feature
+    ENV.emberPouch.localDb = 'mdspec';
+
+    //ENV.rootURL = '/mdEditor';
+    ENV.locationType = 'hash';
+  }
   return ENV;
 };
