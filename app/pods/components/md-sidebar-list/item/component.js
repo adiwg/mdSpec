@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import {
   computed
 } from '@ember/object';
+//import { filterBy } from '@ember/object/computed';
 import {
   htmlSafe
 } from '@ember/string';
@@ -34,4 +35,6 @@ export default Component.extend({
 
     return htmlSafe('padding-left: ' + pad + 'rem;');
   }),
+
+  //fulfilled: filterBy('model.requirements.@each.isFulfilled','model.requirements','isFulfilled')
 });

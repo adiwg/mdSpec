@@ -2,6 +2,7 @@
 <div class="cursor-pointer" onClick-{{action (mut editing) true}}>
   <h5 class="mb-1">{{model.title}}</h5>
   <p class="mb-1">{{model.description}}</p>
+  {{model.isFulfilled}}
 </div>
 {{else}}
   {{#bs-form formLayout="horizontal" model=model onSubmit=(action "submit") as |form|}}

@@ -36,6 +36,19 @@ export default Component.extend({
       this.get('model').destroyRecord().then(function() {
         router.transitionTo('index')
       });
+    },
+    updateFufills(value, isSelected) {
+      let fulfills = this.get('model.fulfills');
+
+      if(!isSelected) {
+        fulfills.addObject(value);
+      } else {
+        fulfills.removeObject(value);
+      }
+
+      this.get('model').save().then(function() {
+        value.save();
+      });
     }
   }
 });

@@ -24,3 +24,32 @@
   {{/bs-button}}
 </div>
 {{/bs-form}}
+
+{{#if model.parent}}
+  {{#unless model.isNew}}
+  <h3 class="my-5">Fufills Requirements</h3>
+  {{#if model.parent.requirements}}
+
+    {{#multiselect-checkboxes
+      options=model.parent.requirements
+      selection=model.fulfills
+      labelProperty="title"
+      updateSelectionValue=false
+      tagName="div"
+      class="list-group" as |item isSelected|
+    }}
+      <label class="list-group-item list-group-item-action cursor-pointer">
+        <h5>
+          {{input type="checkbox" checked=isSelected change=(action "updateFufills" item isSelected)}}
+          {{item.title}}
+        </h5>
+        {{#if item.description}}
+          <p>{{item.description}}</p>
+        {{/if}}
+      </label>
+    {{/multiselect-checkboxes}}
+{{else}}
+  No requirements found.
+  {{/if}}
+  {{/unless}}
+{{/if}}

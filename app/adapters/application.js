@@ -1,8 +1,12 @@
 import { Adapter } from 'ember-pouch';
 import PouchDB from 'pouchdb';
+import replicationStream from 'pouchdb-replication-stream';
 import config from 'mdspec/config/environment';
 import { assert } from '@ember/debug';
 import { isEmpty } from '@ember/utils';
+
+PouchDB.plugin(replicationStream.plugin);
+PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
 function createDb() {
   let localDb = config.emberPouch.localDb;
@@ -27,6 +31,8 @@ export default Adapter.extend({
   init() {
     this._super(...arguments);
     this.set('db', createDb());
+
+    console.log(this.get('db').allDocs({include_docs: true, attachments: true}));
   },
 
   unloadedDocumentChanged: function(obj) {

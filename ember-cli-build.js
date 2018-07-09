@@ -8,6 +8,15 @@ module.exports = function(defaults) {
       'bootstrapVersion': 4,
       'importBootstrapFont': false,
       'importBootstrapCSS': false
+    },
+    autoImport: {
+      webpack: {
+          resolve: {
+            alias: {
+              'pouchdb-promise$': "pouchdb-promise/lib/index.js"
+            }
+          }
+      }
     }
   });
 

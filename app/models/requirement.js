@@ -7,10 +7,12 @@ import {
 import {
   v4
 } from 'ember-uuid';
+import { bool } from '@ember/object/computed';
 
 const {
   attr,
-  belongsTo
+  belongsTo,
+  hasMany
 } = DS;
 
 const Validations = buildValidations({
@@ -31,7 +33,7 @@ const Validations = buildValidations({
   ]
 });
 
-export default Model.extend(Validations,{
+export default Model.extend(Validations, {
   uuid: attr('string', {
     defaultValue: v4()
   }),
@@ -39,5 +41,12 @@ export default Model.extend(Validations,{
   description: attr('string'),
   contact: attr('string'),
 
-  parent: belongsTo('component')
+  isFulfilled: bool('fulfilledBy.length'),
+
+  parent: belongsTo('component'),
+  fulfilledBy: hasMany('component', {
+    inverse: 'fulfills',
+    save: true
+  })
+
 });

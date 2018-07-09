@@ -7,6 +7,7 @@ import {
 import {
   v4
 } from 'ember-uuid';
+import { computed } from '@ember/object';
 
 const Validations = buildValidations({
   // password: [
@@ -44,9 +45,18 @@ export default Model.extend(Validations,{
   presence: attr('string'),
   mapping: attr('string'),
   isProperty: attr('boolean', { defaultValue: false }),
+  fulfilled: computed('requirements.@each.isFulfilled', function(){
+    return this.get('requirements').filterBy('isFulfilled');
+  }),
+  fulfilledStyle: computed('fulfilled.[]', function() {
+    let fulfilled = this.get('fulfilled.length');
+    let total = this.get('requirements.length');
 
+    return fulfilled === total ? 'success' : 'warning';
 
+  }),
   children: hasMany('component', { inverse: 'parent' }),
   parent: belongsTo('component', { inverse: 'children' }),
   requirements: hasMany('requirement'),
+  fulfills: hasMany('requirement', {inverse: 'fulfilledBy', save:true})
 });

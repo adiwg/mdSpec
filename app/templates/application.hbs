@@ -3,9 +3,14 @@
   {{navbar.toggle}}
   {{#navbar.content}}
     {{#navbar.nav class="mr-auto" as |nav|}}
-      {{#nav.item}}{{#nav.link-to "application"}}Getting Started{{/nav.link-to}}{{/nav.item}}
-      {{#nav.item}}{{#nav.link-to "index"}}Components{{/nav.link-to}}{{/nav.item}}
-      {{#nav.item}}<a href="/api" class="nav-link">API</a>{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "index"}}Getting Started{{/nav.link-to}}{{/nav.item}}
+      {{!-- {{#nav.item}}{{#nav.link-to "index"}}Components{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}<a href="/api" class="nav-link">API</a>{{/nav.item}} --}}
+      {{#nav.item}}
+        {{#bs-button type="outline-light" onClick=(action "saveDb")}}
+          {{fa-icon "download"}} Save
+        {{/bs-button}}
+      {{/nav.item}}
     {{/navbar.nav}}
     {{#navbar.nav as |nav|}}
       {{#nav.item class="visible-sm-block visible-xs-block"}}
@@ -17,7 +22,7 @@
 
 <div class="d-flex flex-row">
   {{!-- <div class="row"> --}}
-    <nav class="d-md-flex d-none bg-light sidebar">
+    <nav class="d-sm-flex d-none bg-light sidebar">
       <div class="sidebar-sticky w-100">
         {{#bs-nav type="" justified=true class="sticky-top p-2" as |nav|}}
           {{#nav.item}}
@@ -30,7 +35,7 @@
         {{md-sidebar-list model=modules}}
       </div>
     </nav>
-    {{md-splitter "||" ".sidebar" class="d-none d-md-block"}}
+    {{md-splitter "||" ".sidebar" class="d-none d-sm-block"}}
     <main role="main" class="d-flex pt-3 px-4">
       {{outlet}}
     </main>

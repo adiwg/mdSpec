@@ -21,6 +21,10 @@ Router.map(function () {
       path: '/:component_id'
     }, function() {});
   });
+  this.route('not-found', {
+    path: '/*path'
+  });
+  this.route('error');
 });
 
 export default Router;
