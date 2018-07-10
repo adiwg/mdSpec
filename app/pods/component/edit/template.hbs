@@ -1,0 +1,17 @@
+<h2>
+  {{fa-icon "cube"}} Component: <span class="text-primary">{{model.title}}</span>
+</h2>
+
+{{#bs-tab class="my-4" as |tab|}}
+  {{#tab.pane title="Info"}}
+    <div class="mt-5">
+      {{md-spec-form model=model}}
+    </div>
+  {{/tab.pane}}
+  {{#tab.pane title="Requirements"}}
+    {{md-requirement-list model=model.requirements addRequirement=(action "addRequirement")}}
+  {{/tab.pane}}
+  {{#tab.pane title="SubComponents"}}
+    {{md-component-list model=model}}
+  {{/tab.pane}}
+{{/bs-tab}}

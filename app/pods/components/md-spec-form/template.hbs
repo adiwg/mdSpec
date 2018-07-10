@@ -1,0 +1,55 @@
+{{yield}}
+
+{{#bs-form formLayout="horizontal" model=model onSubmit=(action "submit") as |form|}}
+  {{form.element controlType="text" label="Title" property="title" placeholder="Descriptive title"}}
+  {{form.element controlType="textarea" label="Description" property="description" placeholder="Describe this object"}}
+  {{form.element controlType="textarea" label="Purpose" property="purpose" placeholder="Describe why this is needed"}}
+  {{form.element controlType="textarea" label="Use" property="use" placeholder="Guidance for use of this object"}}
+  {{form.element controlType="text" label="Contact" property="contact" placeholder="Party responsible for this specification"}}
+  {{#form.element controlType="power-select" property="presence"
+    placeholder="Choose one" label="Required?" options=presenceOpts as |el|}}
+    {{el.control searchEnabled=false}}
+  {{/form.element}}
+  {{form.element controlType="text" label="Mapping" property="mapping" placeholder="Related path in metadata standard, e.g. mdJSON"}}
+  {{!-- {{form.element controlType="checkbox" label="Is property?" property="isProperty"}} --}}
+
+  <hr>
+<div class="btn-toolbar" role="toolbar">
+
+  {{#bs-button class="mr-1" type="success" buttonType="submit" disabled=submitDisabled}}
+    {{fa-icon "save"}} Save
+  {{/bs-button}}
+  {{#bs-button type="danger" buttonType="button" onClick=(action "delete")}}
+    {{fa-icon "trash"}} Delete
+  {{/bs-button}}
+</div>
+{{/bs-form}}
+
+{{#if model.parent}}
+  {{#unless model.isNew}}
+  <h3 class="my-5">Fufills Requirements</h3>
+  {{#if model.parent.requirements}}
+
+    {{#multiselect-checkboxes
+      options=model.parent.requirements
+      selection=model.fulfills
+      labelProperty="title"
+      updateSelectionValue=false
+      tagName="div"
+      class="list-group" as |item isSelected|
+    }}
+      <label class="list-group-item list-group-item-action cursor-pointer">
+        <h5>
+          {{input type="checkbox" checked=isSelected change=(action "updateFufills" item isSelected)}}
+          {{item.title}}
+        </h5>
+        {{#if item.description}}
+          <p>{{item.description}}</p>
+        {{/if}}
+      </label>
+    {{/multiselect-checkboxes}}
+{{else}}
+  No requirements found.
+  {{/if}}
+  {{/unless}}
+{{/if}}
