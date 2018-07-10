@@ -24,6 +24,9 @@ const Validations = buildValidations({
   // ],
   title: [
     validator('presence', true)
+  ],
+  description: [
+    validator('presence', true)
   ]
 });
 

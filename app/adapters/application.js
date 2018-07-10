@@ -32,7 +32,7 @@ export default Adapter.extend({
     this._super(...arguments);
     this.set('db', createDb());
 
-    console.log(this.get('db').allDocs({include_docs: true, attachments: true}));
+    //console.log(this.get('db').allDocs({include_docs: true, attachments: true}));
   },
 
   unloadedDocumentChanged: function(obj) {

@@ -4,6 +4,7 @@ import MemoryStream from 'memorystream';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 
+const console = window.console;
 
 export default Controller.extend({
   modules: computed('model.@each.parent', function() {

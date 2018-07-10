@@ -1,17 +1,17 @@
 {{yield}}
 
 {{#bs-form formLayout="horizontal" model=model onSubmit=(action "submit") as |form|}}
-  {{form.element controlType="text" label="Title" property="title"}}
-  {{form.element controlType="textarea" label="Purpose" property="purpose"}}
-  {{form.element controlType="textarea" label="Description" property="description"}}
-  {{form.element controlType="textarea" label="Use" property="use"}}
-  {{form.element controlType="text" label="Contact" property="contact"}}
+  {{form.element controlType="text" label="Title" property="title" placeholder="Descriptive title"}}
+  {{form.element controlType="textarea" label="Description" property="description" placeholder="Describe this object"}}
+  {{form.element controlType="textarea" label="Purpose" property="purpose" placeholder="Describe why this is needed"}}
+  {{form.element controlType="textarea" label="Use" property="use" placeholder="Guidance for use of this object"}}
+  {{form.element controlType="text" label="Contact" property="contact" placeholder="Party responsible for this specification"}}
   {{#form.element controlType="power-select" property="presence"
-    placeholder="Choose one" label="Presence" options=presenceOpts as |el|}}
+    placeholder="Choose one" label="Required?" options=presenceOpts as |el|}}
     {{el.control searchEnabled=false}}
   {{/form.element}}
-  {{form.element controlType="text" label="Mapping" property="mapping"}}
-  {{form.element controlType="checkbox" label="Is property?" property="isProperty"}}
+  {{form.element controlType="text" label="Mapping" property="mapping" placeholder="Related path in metadata standard, e.g. mdJSON"}}
+  {{!-- {{form.element controlType="checkbox" label="Is property?" property="isProperty"}} --}}
 
   <hr>
 <div class="btn-toolbar" role="toolbar">

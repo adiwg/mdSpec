@@ -14,21 +14,19 @@ export default Route.extend({
     //   parent: null}
     // });
   },
-  actions: {
-    error(error) {
-      //Logger.error(error);
-
-      if(error.status === 404) {
-        return this.transitionTo('not-found');
-      }
-
-      return this.replaceWith('error')
-        .then(function(route) {
-          route.controller.set('lastError', error);
-        });
-    },
-    didTransition() {
-      this.controller.set('currentRoute', this.router.get('currentRouteName'));
-    }
-  }
+  // actions: {
+  //   error(error) {
+  //     //Logger.error(error);
+  //
+  //     if(error.status === 404) {
+  //       return this.transitionTo('not-found');
+  //     }
+  //
+  //     //this.controllerFor('error').set('lastError', error);
+  //     return this.replaceWith('error');
+  //   }//,
+  //   // didTransition() {
+  //   //   this.controller.set('currentRoute', this.router.get('currentRouteName'));
+  //   // }
+  // }
 });
