@@ -1,5 +1,28 @@
-<h3>Getting Started</h3>
-<hr>
-<p>
-  Select or create a module or component.
+<div class="container">
+  <h3>Getting Started</h3>
+
+  <hr>
+
+  <p>
+    The primary purpose of this application is to help write content
+    specifications for metadata. However, it probably could be used to write a
+    simple specification for other things, too.
 </p>
+<p>
+    mdSpec can be used to build a heirarchy of modules and components. Each
+    module or component may be assigned requirements which may be fulfilled by
+    child components. The heirarchy may be navigated using the tree in the sidebar.
+</p>
+<p>
+    Click this button to get started:
+    {{#link-to "module.new" class="btn btn-success"}}{{fa-icon "plus"}} Create Module {{fa-icon "cubes"}}{{/link-to}}
+</p>
+
+  <div class="card mx-auto">
+    <img src="{{rootURL}}images/mdspec.png" class="card-img-top border-bottom" alt="mdSpec screenshot">
+    <div class="card-body">
+      <p class="card-text">Example of a specification tree.</p>
+    </div>
+  </div>
+
+</div>

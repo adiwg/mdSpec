@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import MemoryStream from 'memorystream';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import config from 'mdspec/config/environment';
 
 const console = window.console;
 
@@ -13,6 +14,7 @@ export default Controller.extend({
       return !p;
     });
   }),
+  rootURL: config.rootURL,
   actions: {
     saveDb() {
       let db = this.store.adapterFor('project').db;
