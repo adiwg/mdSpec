@@ -2672,7 +2672,7 @@
           return this.transitionTo('not-found');
         }
 
-        this.controllerFor('error').set('lastError', error);
+        //this.controllerFor('error').set('lastError', error);
         return this.replaceWith('error');
       } //,
       // didTransition() {
