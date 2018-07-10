@@ -2672,13 +2672,12 @@
           return this.transitionTo('not-found');
         }
 
-        return this.replaceWith('error').then(function (route) {
-          route.controller.set('lastError', error);
-        });
-      },
-      didTransition() {
-        this.controller.set('currentRoute', this.router.get('currentRouteName'));
-      }
+        this.controllerFor('error').set('lastError', error);
+        return this.replaceWith('error');
+      } //,
+      // didTransition() {
+      //   this.controller.set('currentRoute', this.router.get('currentRouteName'));
+      // }
     }
   });
 });
