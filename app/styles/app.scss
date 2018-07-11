@@ -8,3 +8,13 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.navbar-dark .nav-item .file-upload {
+  a {
+    @extend .btn-outline-light;
+  }
+
+  a:hover {
+    @extend .btn-outline-light:hover;
+  }
+}

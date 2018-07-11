@@ -8,10 +8,26 @@
       {{#nav.item}}<a href="/api" class="nav-link">API</a>{{/nav.item}} --}}
     {{/navbar.nav}}
     {{#navbar.nav class="mr-auto" as |nav|}}
-      {{#nav.item}}
+      {{#nav.item class="mr-2"}}
         {{#bs-button type="outline-light" onClick=(action "saveDb")}}
           {{fa-icon "download"}} Save
         {{/bs-button}}
+      {{/nav.item}}
+      {{#nav.item}}
+        {{#file-upload name="db"
+           accept="application/json" multiple=true
+           onfileadd=(action "loadDb") as |queue|}}
+           <a class="btn btn-outline-light">
+             {{#if queue.files.length}}
+               Loading...
+             {{else}}
+               {{fa-icon "download"}} Load
+             {{/if}}
+           </a>
+        {{!-- {{#bs-button type="outline-light"}}
+          {{fa-icon "upload"}} Load
+        {{/bs-button}} --}}
+        {{/file-upload}}
       {{/nav.item}}
     {{/navbar.nav}}
     {{#navbar.nav as |nav|}}
