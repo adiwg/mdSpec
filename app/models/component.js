@@ -48,6 +48,7 @@ export default Model.extend(Validations,{
   presence: attr('string'),
   mapping: attr('string'),
   isProperty: attr('boolean', { defaultValue: false }),
+  notMappable: attr('boolean', { defaultValue: false }),
   fulfilled: computed('requirements.@each.isFulfilled', function(){
     return this.get('requirements').filterBy('isFulfilled');
   }),

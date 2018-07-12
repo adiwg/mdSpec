@@ -10,7 +10,8 @@
     placeholder="Choose one" label="Required?" options=presenceOpts as |el|}}
     {{el.control searchEnabled=false}}
   {{/form.element}}
-  {{form.element controlType="text" label="Mapping" property="mapping" placeholder="Related path in metadata standard, e.g. mdJSON"}}
+  {{form.element controlType="textarea" label="Mapping" property="mapping" placeholder="Related path in metadata standard, e.g. mdJSON"}}
+  {{form.element controlType="checkbox" label="Not Mappable?" property="notMappable"}}
   {{!-- {{form.element controlType="checkbox" label="Is property?" property="isProperty"}} --}}
 
   <hr>
