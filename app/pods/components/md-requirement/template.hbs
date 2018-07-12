@@ -1,8 +1,16 @@
 {{#unless isEditing}}
 <div class="cursor-pointer" onClick-{{action (mut editing) true}}>
-  <h5 class="mb-1">{{model.title}}</h5>
+  <h5 class="mb-1 row">
+    <div class="col-11 pr-3">
+      {{model.title}}
+    </div>
+    <div class="col-1 text-success">
+      {{#if model.isFulfilled}}
+      {{fa-icon "check"}}
+      {{/if}}
+    </div>
+  </h5>
   <p class="mb-1">{{model.description}}</p>
-  {{model.isFulfilled}}
 </div>
 {{else}}
   {{#bs-form formLayout="horizontal" model=model onSubmit=(action "submit") as |form|}}
