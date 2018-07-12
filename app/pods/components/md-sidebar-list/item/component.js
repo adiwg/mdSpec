@@ -10,7 +10,9 @@ import {
 export default Component.extend({
   tagName: 'li',
   classNames: ['list-group-item'],
+  classNameBindings: ['over:drag-over'],
 
+  over: false,
   type: computed('parentItem', function () {
     let parent = this.get('parentItem');
 
@@ -37,4 +39,29 @@ export default Component.extend({
   }),
 
   //fulfilled: filterBy('model.requirements.@each.isFulfilled','model.requirements','isFulfilled')
+  actions: {
+    dropIt(item) {
+      let model = item.get('model');
+
+      // if(this.get('level') <= item.get('level') && topItem != top) {
+      if(!this.get('model.allParents').includes(model.get('id'))) {
+        model.get('fulfills').forEach((req)=>{
+            req.get('fulfilledBy').removeObject(model);
+            req.save();
+        });
+
+        model.set('fulfills', []);
+        model.set('parent', this.get('model'));
+
+
+        model.save();
+      }
+    },
+    dragOver() {
+      this.toggleProperty('over');
+    },
+    dragOut() {
+      this.toggleProperty('over');
+    }
+  }
 });

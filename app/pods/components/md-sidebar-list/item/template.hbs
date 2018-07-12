@@ -1,9 +1,13 @@
-{{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper d-flex justify-content-between align-items-center pr-1"}}
-<div class="text-truncate" style={{padding}}>
-  <span class="text-level">{{levelText}}</span> {{model.title}}
-</div>
-<span class="badge badge-{{model.fulfilledStyle}} badge-pill">{{model.fulfilled.length}}/{{model.requirements.length}}</span>
-{{/link-to}}
+{{#draggable-object content=this}}
+{{#draggable-object-target action="dropIt" dragOverAction="dragOver" dragOutAction="dragOut"}}
+  {{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper d-flex justify-content-between align-items-center pr-1"}}
+  <div class="text-truncate" style={{padding}}>
+    <span class="text-level">{{levelText}}</span> {{model.title}}
+  </div>
+  <span class="badge badge-{{model.fulfilledStyle}} badge-pill">{{model.fulfilled.length}}/{{model.requirements.length}}</span>
+  {{/link-to}}
+{{/draggable-object-target}}
+{{/draggable-object}}
 
 {{#if model.children.length}}
   {{md-sidebar-list model=model.children parentItem=this}}

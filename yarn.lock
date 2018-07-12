@@ -3530,6 +3530,12 @@ ember-decorators@^2.0.0-beta.2:
     ember-cli-babel "^6.0.0"
     semver "^5.5.0"
 
+ember-drag-drop@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/ember-drag-drop/-/ember-drag-drop-0.4.8.tgz#59d0d89c30068abd3edcdec47f84edd26fa8ef02"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+
 ember-export-application-global@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ember-export-application-global/-/ember-export-application-global-2.0.0.tgz#8d6d7619ac8a1a3f8c43003549eb21ebed685bd2"
@@ -5352,6 +5358,10 @@ inquirer@^3.0.6:
     string-width "^2.1.0"
     strip-ansi "^4.0.0"
     through "^2.3.6"
+
+install@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/install/-/install-0.12.1.tgz#38b2dd4489330e9af3eeaba93b9e3fc77dee7872"
 
 into-stream@^3.1.0:
   version "3.1.0"

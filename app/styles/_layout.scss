@@ -21,6 +21,14 @@
     .list-group-item {
       padding: 0;
 
+      &.drag-over{
+        background-color: $warning;
+
+        .md-item-wrapper {
+          background-color: inherit;
+        }
+      }
+
       .md-item-wrapper {
         color: $primary;
         padding-bottom: .75rem;
