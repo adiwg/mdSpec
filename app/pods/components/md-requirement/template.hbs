@@ -18,17 +18,17 @@
     {{form.element controlType="textarea" label="Description" placeholder="Description" property="description"}}
 
       {{#bs-button class="mr-1" type="success" buttonType="submit" disabled=submitDisabled}}
-        {{fa-icon "save"}} Save
+        {{fa-icon "save"}} <span class="align-middle">Save</span>
       {{/bs-button}}
 
       {{#unless model.isNew}}
       {{#bs-button class="mr-1" type="info" buttonType="button" onClick=(action (mut editing) false)}}
-        {{fa-icon "undo"}} Cancel
+        {{fa-icon "undo"}} <span class="align-middle">Cancel</span>
       {{/bs-button}}
       {{/unless}}
 
       {{#bs-button type="danger" buttonType="button" onClick=(action "delete")}}
-        {{fa-icon "trash"}} Delete
+        {{fa-icon "trash"}} <span class="align-middle">Delete</span>
       {{/bs-button}}
   {{/bs-form}}
 {{/unless}}

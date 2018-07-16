@@ -18,10 +18,10 @@
 <div class="btn-toolbar" role="toolbar">
 
   {{#bs-button class="mr-1" type="success" buttonType="submit" disabled=submitDisabled}}
-    {{fa-icon "save"}} Save
+    {{fa-icon "save"}} <span class="align-middle">Save</span>
   {{/bs-button}}
   {{#bs-button type="danger" buttonType="button" onClick=(action "delete")}}
-    {{fa-icon "trash"}} Delete
+    {{fa-icon "trash"}} <span class="align-middle">Delete</span>
   {{/bs-button}}
 </div>
 {{/bs-form}}

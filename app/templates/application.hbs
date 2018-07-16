@@ -10,7 +10,7 @@
     {{#navbar.nav class="mr-auto" as |nav|}}
       {{#nav.item class="mr-2"}}
         {{#bs-button type="outline-light" onClick=(action "saveDb")}}
-          {{fa-icon "download"}} Save
+          {{fa-icon "download"}} <span class="align-middle">Save</span>
         {{/bs-button}}
       {{/nav.item}}
       {{#nav.item}}
@@ -21,7 +21,7 @@
              {{#if queue.files.length}}
                Loading...
              {{else}}
-               {{fa-icon "download"}} Load
+               {{fa-icon "upload"}} <span class="align-middle">Load</span>
              {{/if}}
            </a>
         {{!-- {{#bs-button type="outline-light"}}
