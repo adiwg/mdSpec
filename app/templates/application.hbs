@@ -1,4 +1,5 @@
-{{#bs-navbar fluid=true position="sticky-top" type="dark" backgroundColor="primary" as |navbar|}}
+{{#bs-navbar fluid=true toggleBreakpoint="md" position="sticky-top" class="main-nav"
+ type="dark" backgroundColor="primary" as |navbar|}}
   {{#link-to "index" class="navbar-brand"}}{{fa-icon "pen-square"}} mdSpec{{/link-to}}
   {{navbar.toggle}}
   {{#navbar.content}}
