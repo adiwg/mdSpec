@@ -13,6 +13,9 @@ export default Component.extend({
   classNameBindings: ['over:drag-over'],
 
   over: false,
+  draggable: computed('model.fulfills.length', function() {
+    return ! this.get('model.fulfills.length');
+  }),
   type: computed('parentItem', function () {
     let parent = this.get('parentItem');
 
