@@ -20,7 +20,7 @@
   {{#bs-button class="mr-1" type="success" buttonType="submit" disabled=submitDisabled}}
     {{fa-icon "save"}} <span class="align-middle">Save</span>
   {{/bs-button}}
-  {{#bs-button type="danger" buttonType="button" onClick=(action "delete")}}
+  {{#bs-button type="danger" buttonType="button" onClick=(action "delete") disabled=(if model.deletable false true)}}
     {{fa-icon "trash"}} <span class="align-middle">Delete</span>
   {{/bs-button}}
 </div>
@@ -39,7 +39,7 @@
       tagName="div"
       class="list-group" as |item isSelected|
     }}
-      <label class="list-group-item list-group-item-action cursor-pointer">
+      <label class="list-group-item list-group-item-action cursor-pointer {{if isSelected "list-group-item-success"}}">
         <h5>
           {{input type="checkbox" checked=isSelected change=(action "updateFufills" item isSelected)}}
           {{item.title}}

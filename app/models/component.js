@@ -72,6 +72,10 @@ export default Model.extend(Validations, {
     return getParents(this);
   }),
 
+  deletable:computed('children.[]','fulfills.[]', function() {
+    return !this.get('children.length');// && !this.get('fulfills.length');
+  }),
+
   fulfilled: computed('requirements.@each.isFulfilled', function () {
     return this.get('requirements').filterBy('isFulfilled');
   }),

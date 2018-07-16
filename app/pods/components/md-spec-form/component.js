@@ -3,6 +3,7 @@ import {
   computed
 } from '@ember/object';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 const presenceOpts = ['optional', 'recommended', 'mandatory'];
 
@@ -32,10 +33,31 @@ export default Component.extend({
     },
     delete() {
       let router = this.get('router');
+      let comp = this.get('model');
 
-      this.get('model').destroyRecord().then(function() {
-        router.transitionTo('index')
+      //collect the promises for deletion
+      let promises = [];
+      //get and destroy the component requirements
+      comp.get('requirements').then((requirements) => {
+        requirements.map((req) => {
+          promises.push(req.destroyRecord());
+        });
       });
+
+      //remove the req from components
+      comp.get('fulfills').then((fulfills) => {
+        fulfills.map((req) => {
+          req.get('fulfilledBy').removeObject(comp);
+          promises.pushObject(req.save());
+        });
+      });
+
+      RSVP.all(promises).then(() => {
+        comp.destroyRecord().then(function() {
+          router.transitionTo('index');
+        });
+      });
+
     },
     updateFufills(value, isSelected) {
       let fulfills = this.get('model.fulfills');
