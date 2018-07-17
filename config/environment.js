@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'mdspec',
     podModulePrefix: 'mdspec/pods',
@@ -24,17 +24,17 @@ module.exports = function(environment) {
       // when it is created
     },
     contentSecurityPolicy: {
-        //'default-src': ["'none'"],
-        'script-src':  ["'self'"],
-        'font-src':    ["'self'"],
-        'connect-src': ["'self'"],
-        'img-src':     ["'self' data:"],
-        'style-src':   ["'self' 'unsafe-inline'"],
-        'media-src':   ["'self'"]
-      }
+      //'default-src': ["'none'"],
+      'script-src': ["'self'"],
+      'font-src': ["'self'"],
+      'connect-src': ["'self'"],
+      'img-src': ["'self' data:"],
+      'style-src': ["'self' 'unsafe-inline'"],
+      'media-src': ["'self'"]
+    }
   };
 
-  if (environment === 'development') {
+  if(environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -43,9 +43,18 @@ module.exports = function(environment) {
 
     ENV.emberPouch.localDb = 'dev';
     //ENV.emberPouch.remoteDb = 'http://localhost:5984/my_couch';
+
+    ENV.contentSecurityPolicy = {
+      'script-src': ["'self' 'unsafe-eval'"],
+      'font-src': ["'self'"],
+      'connect-src': ["'self'"],
+      'img-src': ["'self' data:"],
+      'style-src': ["'self' 'unsafe-inline'"],
+      'media-src': ["'self'"]
+    }
   }
 
-  if (environment === 'test') {
+  if(environment === 'test') {
     // Testem prefers this...
     ENV.locationType = 'none';
 
@@ -57,13 +66,13 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
-  if (environment === 'staging') {
+  if(environment === 'staging') {
     ENV.rootURL = '/mdSpec';
     ENV.locationType = 'hash';
     ENV.emberPouch.localDb = 'mdspec';
   }
 
-  if (environment === 'production') {
+  if(environment === 'production') {
     // here you can enable a production-specific feature
     ENV.emberPouch.localDb = 'mdspec';
 
