@@ -1,9 +1,9 @@
 {{#draggable-object content=this dragHandle=".js-dragHandle"}}
 {{#draggable-object-target action="dropIt" dragOverAction="dragOver" dragOutAction="dragOut"}}
   {{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper d-flex justify-content-between align-items-center pr-1"}}
-  <div class="{{if draggable "js-dragHandle dragHandle" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
+  <div class="{{if draggable "js-dragHandle dragHandle icon" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
   {{#if collapsible}}
-    <div class="d-inline-flex ml-2" onClick={{action "toggleCollapse"}}>
+    <div class="d-inline-flex ml-2 icon" onClick={{action "toggleCollapse"}}>
       {{fa-icon (if collapsed "folder" "folder-open") fixedWidth=true}}
     </div>
   {{else}}

@@ -35,7 +35,7 @@
     .list-group-item {
       padding: 0;
 
-      &.drag-over{
+      &.drag-over {
         background-color: $warning;
 
         .md-item-wrapper {
@@ -50,6 +50,10 @@
 
         .text-level {
           color: $gray-500;
+        }
+
+        .icon:hover {
+          color: $warning;
         }
 
         &:hover {
