@@ -1,0 +1,82 @@
+<div class="flex-grow-1" style={{padding}} id={{concat "comp-" model.id}}>
+    {{!-- <h5> --}}
+  <h5 class="font-weight-bold border-top border-bottom py-3 mb-2">
+    {{levelText}}:
+    {{#link-to (concat type ".edit") model class="card-link"}}
+      {{model.title}}
+    {{/link-to}}
+  </h5>
+  {{!-- </h5> --}}
+  {{!-- <hr> --}}
+
+  <dl class="row pl-3">
+    {{!-- <dt class="col-sm-3">UUID</dt>
+    <dd class="col-sm-9">{{model.id}}</dd> --}}
+
+    <dt class="col-sm-3">Description</dt>
+    <dd class="col-sm-9">
+      <p>{{get-property model "description"}}</p>
+    </dd>
+
+    <dt class="col-sm-3">Purpose</dt>
+    <dd class="col-sm-9">
+      <p>{{get-property model "purpose"}}</p>
+    </dd>
+
+    <dt class="col-sm-3">Use</dt>
+    <dd class="col-sm-9">
+      <p>{{get-property model "use"}}</p>
+    </dd>
+
+    <dt class="col-sm-3">Contact</dt>
+    <dd class="col-sm-9">
+      {{get-property model "contact"}}
+    </dd>
+
+    <dt class="col-sm-3">Requirement</dt>
+    <dd class="col-sm-9">
+      {{get-property model "presence"}}
+    </dd>
+
+    <dt class="col-sm-3">Mapping</dt>
+    <dd class="col-sm-9">
+    {{#unless model.notMappable}}
+      <p>{{get-property model "mapping"}}</p>
+    {{else}}
+      <em>Not Mappable</em>
+    {{/unless}}
+    </dd>
+  </dl>
+{{!-- <hr> --}}
+  <div class="pl-3 mb-4">
+    <h5>Requirements</h5>
+    {{#if model.requirements.length}}
+    <div class="text-{{model.fulfilledStyle}}">Fulfilled: {{model.fulfilled.length}} out of {{model.requirements.length}}</div>
+    {{else}}
+    <div class="text-danger">Requirements not defined.</div>
+    {{/if}}
+
+    {{#if model.requirements.length}}
+      <ol>
+        {{#each model.requirements as |req index|}}
+          <li class="">
+            <em>{{req.title}}</em>
+             <p>{{req.description}}</p>
+
+              {{#if req.fulfilledBy.length}}
+                <p><span class="text-success">Fulfilled by:</span>
+                  {{#each req.fulfilledBy as |c index|}}{{if index ", "}}<a href="#{{concat "comp-" c.id}}">{{c.title}}</a>{{/each}}
+                </p>
+              {{else}}
+              <p><span class="text-danger">Not Fulfilled</span></p>
+              {{/if}}
+          </li>
+        {{/each}}
+      </ol>
+    {{/if}}
+  </div>
+</div>
+
+{{#if model.children.length}}
+  {{md-report modules=model.children parentItem=this}}
+{{/if}}

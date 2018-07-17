@@ -52,7 +52,7 @@ const getParents = (item, acc) => {
 
 export default Model.extend(Validations, {
   uuid: attr('string', {
-    defaultValue: v4()
+    defaultValue: ()=>v4()
   }),
   title: attr('string'),
   purpose: attr('string'),

@@ -5,6 +5,7 @@
   {{#navbar.content}}
     {{#navbar.nav class="mr-5" as |nav|}}
       {{#nav.item}}{{#nav.link-to "index"}}Getting Started{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "report"}}Report{{/nav.link-to}}{{/nav.item}}
       {{!-- {{#nav.item}}{{#nav.link-to "index"}}Components{{/nav.link-to}}{{/nav.item}}
       {{#nav.item}}<a href="/api" class="nav-link">API</a>{{/nav.item}} --}}
     {{/navbar.nav}}
@@ -41,7 +42,7 @@
 
 <div class="d-flex flex-row">
   {{!-- <div class="row"> --}}
-    <nav class="d-sm-flex d-none bg-light sidebar">
+    <nav class="d-sm-flex d-none bg-light sidebar d-print-none">
       <div class="sidebar-sticky w-100">
         {{#bs-nav type="" justified=true class="sticky-top p-2 bg-light" as |nav|}}
           {{#nav.item}}
@@ -54,7 +55,7 @@
         {{md-sidebar-list model=modules}}
       </div>
     </nav>
-    {{md-splitter "||" ".sidebar" class="d-none d-sm-block"}}
+    {{md-splitter "||" ".sidebar" class="d-none d-sm-block d-print-none"}}
     <main role="main" class="d-flex pt-3 px-4">
       {{outlet}}
     </main>

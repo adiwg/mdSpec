@@ -22,3 +22,12 @@
     @extend .btn-outline-light:hover;
   }
 }
+
+@include text-emphasis-variant(".text-warning", darken($warning, 5));
+
+@media print {
+  a {
+    text-decoration: none !important;
+    color: inherit;
+  }
+}
