@@ -1,7 +1,16 @@
-# md-spec
+# mdSpec
+
+https://www.adiwg.org/mdSpec
+
+The primary purpose of this application is to help write content
+specifications for metadata. However, it probably could be used to write a
+simple specification for other things, too.
+
+mdSpec can be used to build a hierarchy of modules and components. Each
+module or component may be assigned requirements which may be fulfilled by
+child components. The hierarchy may be navigated using the tree in the sidebar.
 
 This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
 
 ## Prerequisites
 
@@ -46,7 +55,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+`ember deploy staging` will deploy the application to the `gh-pages` branch.
 
 ## Further Reading / Useful Links
 

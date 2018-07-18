@@ -1,3 +1,17 @@
+.main-nav {
+  @media (max-width: 767.98px) {
+    .nav-item {
+      margin: 0 0 3px !important;
+
+      .btn,
+      .file-upload {
+        display: block;
+        width: 100%;
+      }
+  }
+  }
+}
+
 .sidebar {
   background: $gray-200;
   flex: 0 0 auto;
@@ -21,6 +35,14 @@
     .list-group-item {
       padding: 0;
 
+      &.drag-over {
+        background-color: $warning;
+
+        .md-item-wrapper {
+          background-color: inherit;
+        }
+      }
+
       .md-item-wrapper {
         color: $primary;
         padding-bottom: .75rem;
@@ -28,6 +50,10 @@
 
         .text-level {
           color: $gray-500;
+        }
+
+        .icon:hover {
+          color: $warning;
         }
 
         &:hover {

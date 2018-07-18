@@ -4,6 +4,11 @@ import replicationStream from 'pouchdb-replication-stream';
 import config from 'mdspec/config/environment';
 import { assert } from '@ember/debug';
 import { isEmpty } from '@ember/utils';
+import load from 'pouchdb-load'
+;
+PouchDB.plugin({
+  loadIt: load.load
+});
 
 PouchDB.plugin(replicationStream.plugin);
 PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);

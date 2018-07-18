@@ -1,8 +1,16 @@
 {{#unless isEditing}}
 <div class="cursor-pointer" onClick-{{action (mut editing) true}}>
-  <h5 class="mb-1">{{model.title}}</h5>
+  <h5 class="mb-1 row">
+    <div class="col-11 pr-3">
+      {{model.title}}
+    </div>
+    <div class="col-1 text-success">
+      {{#if model.isFulfilled}}
+      {{fa-icon "check"}}
+      {{/if}}
+    </div>
+  </h5>
   <p class="mb-1">{{model.description}}</p>
-  {{model.isFulfilled}}
 </div>
 {{else}}
   {{#bs-form formLayout="horizontal" model=model onSubmit=(action "submit") as |form|}}
@@ -10,17 +18,32 @@
     {{form.element controlType="textarea" label="Description" placeholder="Description" property="description"}}
 
       {{#bs-button class="mr-1" type="success" buttonType="submit" disabled=submitDisabled}}
-        {{fa-icon "save"}} Save
+        {{fa-icon "save"}} <span class="align-middle">Save</span>
       {{/bs-button}}
 
       {{#unless model.isNew}}
       {{#bs-button class="mr-1" type="info" buttonType="button" onClick=(action (mut editing) false)}}
-        {{fa-icon "undo"}} Cancel
+        {{fa-icon "undo"}} <span class="align-middle">Cancel</span>
       {{/bs-button}}
       {{/unless}}
 
       {{#bs-button type="danger" buttonType="button" onClick=(action "delete")}}
-        {{fa-icon "trash"}} Delete
+        {{fa-icon "trash"}} <span class="align-middle">Delete</span>
       {{/bs-button}}
   {{/bs-form}}
+
+  {{#unless model.isNew}}
+    <hr>
+    <h5 class="mt-3">Fulfilled By</h5>
+    <div class="list-group">
+      {{#each model.fulfilledBy as |item|}}
+        {{#link-to 'component.edit' item.id class="list-group-item list-group-item-action flex-column align-items-start"}}
+          <h5 class="mb-1">{{item.title}}</h5>
+          <p class="mb-1">{{item.description}}</p>
+        {{/link-to}}
+      {{else}}
+        <span class="text-warning">Not fulfilled.</span>
+      {{/each}}
+    </div>
+  {{/unless}}
 {{/unless}}

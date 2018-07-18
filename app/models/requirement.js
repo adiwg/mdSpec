@@ -35,11 +35,14 @@ const Validations = buildValidations({
 
 export default Model.extend(Validations, {
   uuid: attr('string', {
-    defaultValue: v4()
+    defaultValue: ()=>v4()
   }),
   title: attr('string'),
   description: attr('string'),
   contact: attr('string'),
+  order: attr('number', {
+    defaultValue: 0
+  }),
 
   isFulfilled: bool('fulfilledBy.length'),
 

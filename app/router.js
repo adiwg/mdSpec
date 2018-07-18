@@ -25,6 +25,7 @@ Router.map(function () {
     path: '/*path'
   });
   this.route('error');
+  this.route('report');
 });
 
 export default Router;

@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { or } from '@ember/object/computed';
 import { computed } from '@ember/object';
+import RSVP from 'rsvp';
 
 export default Component.extend({
   classNames: [
@@ -24,7 +25,20 @@ export default Component.extend({
       })
     },
     delete(){
-      this.get('model').destroyRecord();
+      let req = this.get('model');
+
+      let promises =[];
+      //remove the req from components
+      req.get('fulfilledBy').then((fulfilledBy) => {
+        fulfilledBy.map((comp) => {
+          comp.get('fulfills').removeObject(req);
+          promises.pushObject(comp.save());
+        });
+      });
+
+      RSVP.all(promises).then(() => {
+        req.destroyRecord();
+      });
     }
   }
 });
