@@ -1,11 +1,16 @@
-import { Adapter } from 'ember-pouch';
+import {
+  Adapter
+} from 'ember-pouch';
 import PouchDB from 'pouchdb';
 import replicationStream from 'pouchdb-replication-stream';
 import config from 'mdspec/config/environment';
-import { assert } from '@ember/debug';
-import { isEmpty } from '@ember/utils';
-import load from 'pouchdb-load'
-;
+import {
+  assert
+} from '@ember/debug';
+import {
+  isEmpty
+} from '@ember/utils';
+import load from 'pouchdb-load';
 PouchDB.plugin({
   loadIt: load.load
 });
@@ -20,7 +25,7 @@ function createDb() {
 
   let db = new PouchDB(localDb);
 
-  if (config.emberPouch.remoteDb) {
+  if(config.emberPouch.remoteDb) {
     let remoteDb = new PouchDB(config.emberPouch.remoteDb);
 
     db.sync(remoteDb, {
@@ -40,11 +45,15 @@ export default Adapter.extend({
     //console.log(this.get('db').allDocs({include_docs: true, attachments: true}));
   },
 
-  unloadedDocumentChanged: function(obj) {
+  unloadedDocumentChanged: function (obj) {
     let store = this.get('store');
     let recordTypeName = this.getRecordTypeName(store.modelFor(obj.type));
-    this.get('db').rel.find(recordTypeName, obj.id).then(function(doc) {
+    this.get('db').rel.find(recordTypeName, obj.id).then(function (doc) {
       store.pushPayload(recordTypeName, doc);
     });
+  },
+
+  destroyDb() {
+    return this.get('db').destroy();
   }
 });

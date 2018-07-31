@@ -1,0 +1,12 @@
+<div class="w-100">
+  {{#if error}}
+    {{#bs-alert type="danger"}}
+      {{fa-icon "exclamation"}} <span class="align-middle"><strong>Error:</strong> {{error}}</span>
+    {{/bs-alert}}
+  {{/if}}
+
+  {{#bs-button type="danger" size="lg" onClick=(action "destroyDb")}}
+    {{fa-icon "trash-alt"}} <span class="align-middle">Delete Everything</span> {{fa-icon "exclamation"}}
+    {{#bs-tooltip}}This will DESTOY ALL RECORDS!!! Are you sure?{{/bs-tooltip}}
+  {{/bs-button}}
+</div>
