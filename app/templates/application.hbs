@@ -33,6 +33,7 @@
       {{/nav.item}}
     {{/navbar.nav}}
     {{#navbar.nav as |nav|}}
+      {{#nav.item}}{{#nav.link-to "settings"}}{{fa-icon "cogs"}} Settings{{/nav.link-to}}{{/nav.item}}
       {{#nav.item class="visible-sm-block visible-xs-block"}}
         <a href="https://github.com/adiwg/mdSpec" class="nav-link" target="_blank" rel="noopener">{{fa-icon "github" prefix="fab"}}</a>
       {{/nav.item}}
