@@ -61,6 +61,16 @@ export default Model.extend(Validations, {
   contact: attr('string'),
   presence: attr('string'),
   mapping: attr('string'),
+  startDate: attr('date',{
+    defaultValue: null
+  }),
+  endDate: attr('date',{
+    defaultValue: null
+  }),
+  progress: attr('number'),
+  completed: attr('boolean', {
+    defaultValue: false
+  }),
   isProperty: attr('boolean', {
     defaultValue: false
   }),

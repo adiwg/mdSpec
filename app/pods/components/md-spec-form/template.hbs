@@ -12,6 +12,9 @@
   {{/form.element}}
   {{form.element controlType="textarea" label="Mapping" property="mapping" placeholder="Related path in metadata standard, e.g. mdJSON"}}
   {{form.element controlType="checkbox" label="Not Mappable?" property="notMappable"}}
+  {{#form.element useIcons=false property="startDate" label="startDate" as |el|}}
+    {{ember-flatpickr date=(readonly el.value) onChange=(action (mut el.value))}}
+  {{/form.element}}
   {{!-- {{form.element controlType="checkbox" label="Is property?" property="isProperty"}} --}}
 
   <hr>
