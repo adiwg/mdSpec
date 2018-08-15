@@ -25,12 +25,12 @@ module.exports = function (environment) {
     },
     contentSecurityPolicy: {
       //'default-src': ["'none'"],
-      'script-src': ["'self'"],
+      'script-src': ["'self' 'unsafe-eval' *.google.com *.gstatic.com"],
       'font-src': ["'self'"],
       'connect-src': ["'self'"],
       'img-src': ["'self' data:"],
-      'style-src': ["'self' 'unsafe-inline'"],
-      'media-src': ["'self'"]
+      'style-src': ["'self' 'unsafe-inline' *.google.com *.googleapis.com *.gstatic.com"],
+      'media-src': ["'self' *.gstatic.com *.googleapis.com"]
     }
   };
 
@@ -45,12 +45,12 @@ module.exports = function (environment) {
     //ENV.emberPouch.remoteDb = 'http://localhost:5984/my_couch';
 
     ENV.contentSecurityPolicy = {
-      'script-src': ["'self' 'unsafe-eval'"],
+      'script-src': ["'self' 'unsafe-eval' *.google.com *.gstatic.com"],
       'font-src': ["'self'"],
       'connect-src': ["'self'"],
       'img-src': ["'self' data:"],
-      'style-src': ["'self' 'unsafe-inline'"],
-      'media-src': ["'self'"]
+      'style-src': ["'self' 'unsafe-inline' *.google.com *.googleapis.com *.gstatic.com"],
+      'media-src': ["'self' *.gstatic.com *.googleapis.com"]
     }
   }
 

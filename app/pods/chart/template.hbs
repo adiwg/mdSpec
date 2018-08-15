@@ -1,0 +1,9 @@
+<div class="w-100 d-block">
+
+{{#unless loaded}}
+<div class="alert alert-info text-center mb-auto mx-auto">
+  <h1>{{fa-icon 'spinner' spin=true}} Loading Chart...</h1>
+</div>
+{{/unless}}
+{{gantt-chart class="w-100" data=model options=options packagesDidLoad=(action "onGoogleLoad")}}
+</div>
