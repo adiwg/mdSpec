@@ -10,11 +10,25 @@
     placeholder="Choose one" label="Required?" options=presenceOpts as |el|}}
     {{el.control searchEnabled=false}}
   {{/form.element}}
+  {{#if model.parent}}
+    <div class="form-group row">
+      <label class="col-form-label col-md-4">Dates</label>
+      <div class="col-sm-7 offset-sm-1 col-md-8 offset-md-0 row no-gutters">
+        <div class="col-lg mr-lg-4">
+          {{#form.element useIcons=true property="startDate" label="Start" as |el|}}
+          {{ember-flatpickr altFormat="M j, Y" altInput=true altInputClass="form-control mr-5" date=(readonly el.value) onChange=(action "setDate" "startDate") maxDate=model.endDate}}
+          {{/form.element}}
+        </div>
+        <div class="col-lg">
+          {{#form.element useIcons=true property="endDate" label="End" as |el|}}
+          {{ember-flatpickr  altFormat="M j, Y" altInput=true altInputClass="form-control" date=(readonly el.value) onChange=(action "setDate" "endDate") minDate=model.startDate}}
+          {{/form.element}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
   {{form.element controlType="textarea" label="Mapping" property="mapping" placeholder="Related path in metadata standard, e.g. mdJSON"}}
   {{form.element controlType="checkbox" label="Not Mappable?" property="notMappable"}}
-  {{#form.element useIcons=false property="startDate" label="startDate" as |el|}}
-    {{ember-flatpickr date=(readonly el.value) onChange=(action (mut el.value))}}
-  {{/form.element}}
   {{!-- {{form.element controlType="checkbox" label="Is property?" property="isProperty"}} --}}
 
   <hr>

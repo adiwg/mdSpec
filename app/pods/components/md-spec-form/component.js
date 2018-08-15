@@ -71,6 +71,10 @@ export default Component.extend({
       this.get('model').save().then(function() {
         value.save();
       });
+    },
+
+    setDate(prop, dates){
+      this.set('model.' + prop, dates[0]);
     }
   }
 });
