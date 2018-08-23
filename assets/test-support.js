@@ -2809,19 +2809,19 @@ var __ember_auto_import__ =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./tmp/ember_auto_import_webpack-staging_dir-MAfymZ9J.tmp/tests.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./tmp/ember_auto_import_webpack-staging_dir-FNCIYOk4.tmp/tests.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./tmp/ember_auto_import_webpack-staging_dir-MAfymZ9J.tmp/tests.js":
+/***/ "./tmp/ember_auto_import_webpack-staging_dir-FNCIYOk4.tmp/tests.js":
 /*!*************************************************************************!*\
-  !*** ./tmp/ember_auto_import_webpack-staging_dir-MAfymZ9J.tmp/tests.js ***!
+  !*** ./tmp/ember_auto_import_webpack-staging_dir-FNCIYOk4.tmp/tests.js ***!
   \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\n\nmodule.exports = (function(){\n  var w = window;\n  var d = w.define;\n  var r = w.require;\n  w.emberAutoImportDynamic = function(specifier) {\n    return r('_eai_dyn_' + specifier);\n  };\n})();\n\n\n//# sourceURL=webpack://__ember_auto_import__/./tmp/ember_auto_import_webpack-staging_dir-MAfymZ9J.tmp/tests.js?");
+eval("\n\nmodule.exports = (function(){\n  var w = window;\n  var d = w.define;\n  var r = w.require;\n  w.emberAutoImportDynamic = function(specifier) {\n    return r('_eai_dyn_' + specifier);\n  };\n})();\n\n\n//# sourceURL=webpack://__ember_auto_import__/./tmp/ember_auto_import_webpack-staging_dir-FNCIYOk4.tmp/tests.js?");
 
 /***/ })
 
@@ -11888,83 +11888,6 @@ define('ember-file-upload/test-support/index', ['exports', '@ember/test-helpers'
     input.files.size = files.length;
 
     return await (0, _testHelpers.triggerEvent)(input, 'change');
-  }
-});
-define('ember-flatpickr/test-support/helpers', ['exports', '@ember/test-helpers'], function (exports, _testHelpers) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.isFlatpickrOpen = isFlatpickrOpen;
-  exports.setFlatpickrDate = setFlatpickrDate;
-  exports.closeFlatpickrDate = closeFlatpickrDate;
-  exports.clearFlatpickrDate = clearFlatpickrDate;
-
-  exports.default = function () {
-    Ember.Test.registerHelper('closeFlatpickrDate', function (app, selector) {
-      (true && !(true) && Ember.deprecate('Using the implicit global helper `closeFlatpickrDate` is deprecated. Please, import it explicitly with `import { closeFlatpickrDate } from "ember-flatpickr/test-support"`', true, { id: 'ember-flatpickr-global-close-flatpickr-date', until: '3.0.0' }));
-
-      return closeFlatpickrDate(selector);
-    });
-
-    Ember.Test.registerHelper('setFlatpickrDate', function (app, selector, date, triggerChange) {
-      (true && !(true) && Ember.deprecate('Using the implicit global helper `setFlatpickrDate` is deprecated. Please, import it explicitly with `import { setFlatpickrDate } from "ember-flatpickr/test-support"`', true, { id: 'ember-flatpickr-global-set-flatpickr-date', until: '3.0.0' }));
-
-      return setFlatpickrDate(selector, date, triggerChange);
-    });
-
-    Ember.Test.registerHelper('clearFlatpickrDate', function (app, selector) {
-      (true && !(true) && Ember.deprecate('Using the implicit global helper `clearFlatpickrDate` is deprecated. Please, import it explicitly with `import { clearFlatpickrDate } from "ember-flatpickr/test-support"`', true, { id: 'ember-flatpickr-global-clear-flatpickr-date', until: '3.0.0' }));
-
-      return clearFlatpickrDate(selector);
-    });
-  };
-
-  /**
-   * Checks if the flatpickr calendar is being displayed.
-   * @param {Number} [pickrIndex=0] - Index of flatpickr calendar to be targeted (for when multiple exist)
-   * @returns {Boolean}
-  */
-  function isFlatpickrOpen(pickrIndex = 0) {
-    const flatpickerCal = document.getElementsByClassName('flatpickr-calendar')[pickrIndex];
-    return flatpickerCal.classList.contains('open');
-  }
-
-  /**
-   * @param {String} selector - CSS3 selector of the element to pull the flatpickr instance from
-   * @param {Object} date - A Date Object or array of Date Objects to set as the selected date(s)
-   * @param {Boolean} [triggerChange=true] - If true, this forces onChange events to fire
-  */
-  function setFlatpickrDate(selector, date, triggerChange = true) {
-    const flatpickrInput = (0, _testHelpers.find)(selector);
-    if (!flatpickrInput) _throwSelectorError(selector, 'setFlatpickrDate');
-    flatpickrInput._flatpickr.setDate(date, triggerChange);
-  }
-
-  /**
-   * @param {String} selector - CSS3 selector of the element to pull the flatpickr instance from
-  */
-  function closeFlatpickrDate(selector) {
-    const flatpickrInput = (0, _testHelpers.find)(selector);
-    if (!flatpickrInput) _throwSelectorError(selector, 'closeFlatpickrDate');
-    flatpickrInput._flatpickr.close();
-  }
-
-  /**
-   * Clears out the flatpickr selectedDates attribute as well as the associated input.
-   * @param {String} selector - CSS3 selector of the element to pull the flatpickr instance from
-  */
-  function clearFlatpickrDate(selector) {
-    const flatpickrInput = (0, _testHelpers.find)(selector);
-    if (!flatpickrInput) _throwSelectorError(selector, 'clearFlatpickrDate');
-    flatpickrInput._flatpickr.clear();
-  }
-
-  // Registers helpers for acceptance tests
-
-  function _throwSelectorError(selector, functionName) {
-    throw new Error(`${functionName}() - No input was found using selector '${selector}'`);
   }
 });
 define('ember-power-select/test-support/helpers', ['exports', '@ember/test-helpers', 'ember-power-select/test-support/index'], function (exports, _testHelpers, _index) {

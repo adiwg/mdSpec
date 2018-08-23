@@ -6328,7 +6328,7 @@ a.text-dark:hover, a.text-dark:focus {
   white-space: nowrap;
   width: 300px; }
   .sidebar .sidebar-sticky {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 65px);
     overflow-x: hidden;
     overflow-y: auto;
     position: sticky;
