@@ -15,14 +15,22 @@
       <label class="col-form-label col-md-4">Dates</label>
       <div class="col-sm-7 offset-sm-1 col-md-8 offset-md-0 row no-gutters">
         <div class="col-lg mr-lg-4">
-          {{#form.element useIcons=true property="startDate" label="Start" as |el|}}
-          {{ember-flatpickr altFormat="M j, Y" altInput=true altInputClass="form-control mr-5" date=(readonly el.value) onChange=(action "setDate" "startDate") maxDate=model.endDate}}
-          {{/form.element}}
+          <div class="row form-group">
+            <label class="col-form-label col-md-4">Start</label>
+            <div class="col-md-8">
+              {{date-picker buttonClasses="btn" options=true
+              value=(if model.startDate (moment model.startDate) null) action=(action "setDate" "startDate") maxDate=(moment model.endDate)}}
+            </div>
+          </div>
         </div>
         <div class="col-lg">
-          {{#form.element useIcons=true property="endDate" label="End" as |el|}}
-          {{ember-flatpickr  altFormat="M j, Y" altInput=true altInputClass="form-control" date=(readonly el.value) onChange=(action "setDate" "endDate") minDate=model.startDate}}
-          {{/form.element}}
+          <div class="row form-group">
+            <label class="col-form-label col-md-4">End</label>
+            <div class="col-md-8">
+              {{date-picker buttonClasses="btn" options=true
+              value=(if model.endDate (moment model.endDate) null) action=(action "setDate" "endDate") minDate=(moment model.startDate)}}
+            </div>
+          </div>
         </div>
       </div>
     </div>

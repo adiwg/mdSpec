@@ -51,7 +51,7 @@ export default Component.extend({
       let model = item.get('model');
 
       // if(this.get('level') <= item.get('level') && topItem != top) {
-      if(!this.get('model.allParents').includes(model.get('id'))) {
+      if(!this.get('model.fullpath').includes(model.get('id'))) {
         model.get('fulfills').forEach((req)=>{
             req.get('fulfilledBy').removeObject(model);
             req.save();

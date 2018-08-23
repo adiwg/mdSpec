@@ -28,6 +28,17 @@
       <p>{{get-property model "use"}}</p>
     </dd>
 
+    <dt class="col-sm-3">Dates</dt>
+    <dd class="col-sm-9">
+      <dl class="row">
+        <dt class="col-sm-3 col-md-2">Start</dt>
+        <dd class="col-sm-9">{{#if model.startDate}} {{moment-format model.startDate "MM/DD/YYYY"}} {{else}} <em>Not Defined</em>{{/if}}</dd>
+        <dt class="col-sm-3 col-md-2">End</dt>
+        <dd class="col-sm-9">{{#if model.endDate}} {{moment-format model.endDate "MM/DD/YYYY"}} {{else}} <em>Not Defined</em>{{/if}}</dd>
+
+      </dl>
+    </dd>
+
     <dt class="col-sm-3">Contact</dt>
     <dd class="col-sm-9">
       {{get-property model "contact"}}

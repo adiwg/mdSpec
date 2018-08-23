@@ -3323,6 +3323,15 @@ ember-cli-htmlbars@^2.0.1, ember-cli-htmlbars@^2.0.2, ember-cli-htmlbars@^2.0.3:
     json-stable-stringify "^1.0.0"
     strip-bom "^3.0.0"
 
+ember-cli-htmlbars@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-3.0.0.tgz#4977b9eddbc725f8da25090ecdbba64533b2eadc"
+  dependencies:
+    broccoli-persistent-filter "^1.4.3"
+    hash-for-dep "^1.2.3"
+    json-stable-stringify "^1.0.0"
+    strip-bom "^3.0.0"
+
 ember-cli-import-polyfill@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-import-polyfill/-/ember-cli-import-polyfill-0.2.0.tgz#c1a08a8affb45c97b675926272fe78cf4ca166f2"
@@ -3622,6 +3631,14 @@ ember-data@~3.2.0:
     semver "^5.1.0"
     silent-error "^1.0.0"
 
+ember-date-components@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ember-date-components/-/ember-date-components-1.2.0.tgz#ccc1440620d15773e5068b9837a0e9ac540df3e4"
+  dependencies:
+    ember-basic-dropdown "^1.0.0"
+    ember-cli-babel "^6.10.0"
+    ember-cli-htmlbars "^3.0.0"
+
 ember-decorators@^2.0.0-beta.2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ember-decorators/-/ember-decorators-2.2.0.tgz#954d70652d74f3ddb789dc23fb8c7cd0b555edb6"
@@ -3633,13 +3650,6 @@ ember-decorators@^2.0.0-beta.2:
     "@ember-decorators/service" "^2.2.0"
     ember-cli-babel "^6.0.0"
     semver "^5.5.0"
-
-ember-diff-attrs@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ember-diff-attrs/-/ember-diff-attrs-0.2.1.tgz#ad9592ab8ba63d796bb9b1633801fe27ca43fc74"
-  dependencies:
-    ember-cli-babel "^6.6.0"
-    ember-weakmap "^3.0.0"
 
 ember-drag-drop@^0.4.8:
   version "0.4.8"
@@ -3665,16 +3675,6 @@ ember-file-upload@^2.5.0:
   dependencies:
     ember-cli-babel "^6.12.0"
     ember-cli-htmlbars "^2.0.1"
-
-ember-flatpickr@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/ember-flatpickr/-/ember-flatpickr-2.5.0.tgz#e32b4e475fadd2c16d6582496dca39dea0ff1238"
-  dependencies:
-    ember-cli-babel "^6.6.0"
-    ember-cli-node-assets "^0.2.2"
-    ember-diff-attrs "^0.2.1"
-    fastboot-transform "^0.1.3"
-    flatpickr "^4.4.6"
 
 ember-get-config@^0.2.3, ember-get-config@^0.2.4:
   version "0.2.4"
@@ -4522,7 +4522,7 @@ fast-sourcemap-concat@^1.3.1:
     source-map-url "^0.4.0"
     sourcemap-validator "^1.1.0"
 
-fastboot-transform@^0.1.0, fastboot-transform@^0.1.3:
+fastboot-transform@^0.1.0:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/fastboot-transform/-/fastboot-transform-0.1.3.tgz#7dea0b117594afd8772baa6c9b0919644e7f7dcd"
   dependencies:
@@ -4665,10 +4665,6 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
-
-flatpickr@^4.4.6:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.1.tgz#f65eaf54c07538f87d6f68a67b03cf816d7fb82f"
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -8694,6 +8690,10 @@ sass-graph@^2.2.4:
     lodash "^4.0.0"
     scss-tokenizer "^0.2.3"
     yargs "^7.0.0"
+
+save-svg-as-png@^1.4.6:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/save-svg-as-png/-/save-svg-as-png-1.4.6.tgz#8c66dc0a418ae7574ca9783066303781ede47f4d"
 
 sax@^1.2.4:
   version "1.2.4"

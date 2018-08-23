@@ -10,6 +10,9 @@ import {
 import {
   computed
 } from '@ember/object';
+import {
+  and
+} from '@ember/object/computed';
 
 const Validations = buildValidations({
   // password: [
@@ -52,7 +55,7 @@ const getParents = (item, acc) => {
 
 export default Model.extend(Validations, {
   uuid: attr('string', {
-    defaultValue: ()=>v4()
+    defaultValue: () => v4()
   }),
   title: attr('string'),
   purpose: attr('string'),
@@ -61,10 +64,10 @@ export default Model.extend(Validations, {
   contact: attr('string'),
   presence: attr('string'),
   mapping: attr('string'),
-  startDate: attr('date',{
+  startDate: attr('date', {
     defaultValue: null
   }),
-  endDate: attr('date',{
+  endDate: attr('date', {
     defaultValue: null
   }),
   progress: attr('number'),
@@ -77,13 +80,34 @@ export default Model.extend(Validations, {
   notMappable: attr('boolean', {
     defaultValue: false
   }),
+  chartable: and('minDate', 'maxDate'),
 
-  allParents: computed('parent', function () {
+  // childStartDates: mapBy('children', 'startDate'),
+  childStartDates: computed('children.@each.startDate', function() {
+    return this.get('children').mapBy('startDate').compact();
+  }),
+
+  minDate: computed('childStartDates', function () {
+    return this.get('childStartDates.length') ? new Date(Math.min.apply(
+      null, this.get('childStartDates'))) : this.get('startDate');
+  }),
+
+  //childEndDates: mapBy('children', 'endDate'),
+  childEndDates: computed('children.@each.endDate', function() {
+    return this.get('children').mapBy('endDate').compact();
+  }),
+
+  maxDate: computed('childEndDates', function () {
+    return this.get('childEndDates.length') ? new Date(Math.max.apply(
+      null, this.get('childEndDates'))) : this.get('endDate');
+  }),
+
+  fullpath: computed('parent', function () {
     return getParents(this);
   }),
 
-  deletable:computed('children.[]','fulfills.[]', function() {
-    return !this.get('children.length');// && !this.get('fulfills.length');
+  deletable: computed('children.[]', 'fulfills.[]', function () {
+    return !this.get('children.length'); // && !this.get('fulfills.length');
   }),
 
   fulfilled: computed('requirements.@each.isFulfilled', function () {

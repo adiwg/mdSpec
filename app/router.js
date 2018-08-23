@@ -21,13 +21,13 @@ Router.map(function () {
       path: '/:component_id'
     }, function() {});
   });
-  this.route('not-found', {
-    path: '/*path'
-  });
-  this.route('error');
+  //this.route('error');
   this.route('report');
   this.route('settings');
   this.route('chart');
+  this.route('not-found', {
+    path: '/*path'
+  });
 });
 
 export default Router;

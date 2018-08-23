@@ -30,7 +30,9 @@ export default Controller.extend({
         dumpedString += chunk.toString();
       });
 
-      db.dump(stream).then(function () {
+      db.dump(stream,  {filter: function (doc) {
+    return doc._deleted !== true;
+  }}).then(function () {
         //console.log('Yay, I have a dumpedString: ' + dumpedString);
         FileSaver.saveAs(
           new Blob([JSON.stringify(dumpedString)], {

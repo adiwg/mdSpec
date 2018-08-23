@@ -1,9 +1,33 @@
 <div class="w-100 d-block">
-
-{{#unless loaded}}
-<div class="alert alert-info text-center mb-auto mx-auto">
-  <h1>{{fa-icon 'spinner' spin=true}} Loading Chart...</h1>
+  <div>
+  <h3 class="mb-4 mr-3 d-inline-block">Timeline</h3>
+  {{#bs-button disabled=(if loaded false true) class="align-text-bottom mr-1" type="primary" size="sm" onClick=(action (toggle "isExpanded" this))}}
+    {{fa-icon (if isExpanded "minus" "plus")}}
+    <span class="align-middle">{{if isExpanded "Collapse" "Expand"}}</span>
+  {{/bs-button}}
+  {{#bs-button disabled=(if loaded false true) class="align-text-bottom mr-1" type="success" size="sm" onClick=(action "saveSvg")}}
+    {{fa-icon "image"}}
+    <span class="align-middle">Save SVG</span>
+  {{/bs-button}}
+  {{#bs-button disabled=(if loaded false true) class="align-text-bottom" type="info" size="sm" onClick=(action "savePng")}}
+    {{fa-icon "image"}}
+  <span class="align-middle">Save PNG</span>
+  {{/bs-button}}
 </div>
-{{/unless}}
-{{gantt-chart class="w-100" data=model options=options packagesDidLoad=(action "onGoogleLoad")}}
+  {{#if model.length}}
+    {{#unless loaded}}
+    <div class="alert alert-info text-center mb-auto mx-auto">
+      <h1>{{fa-icon 'spinner' spin=true}} Loading Chart...</h1>
+    </div>
+    {{/unless}}
+    {{timeline-chart class=(if isExpanded "expanded-chart" "w-100") data=model
+      options=options packagesDidLoad=(action "onGoogleLoad")
+      chartDidRender=(action "chartDidRender")
+    }}
+  {{else}}
+    <div class="alert alert-warning text-center mb-auto mx-auto">
+      <h3>{{fa-icon "exclamation-triangle"}} No chartable components found</h3>
+      <p>(Components must have start and end dates to appear on the chart.</p>
+    </div>
+  {{/if}}
 </div>
