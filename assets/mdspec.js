@@ -3508,16 +3508,43 @@
 
   });
 });
-;define('mdspec/pods/chart/controller', ['exports'], function (exports) {
+;define('mdspec/pods/chart/controller', ['exports', 'save-svg-as-png'], function (exports, _saveSvgAsPng) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
   exports.default = Ember.Controller.extend({
+    onExpand: Ember.observer('isExpanded', function () {
+      window.dispatchEvent(new Event('resize'));
+    }),
     actions: {
       onGoogleLoad() {
         this.set('loaded', true);
+      },
+      chartDidRender(chart) {
+        this.set('chart', chart);
+      },
+      saveSvg() {
+        (0, _saveSvgAsPng.saveSvg)(Ember.$('.google-chart svg')[0], 'chart.png');
+        // let svgEl = $('.google-chart svg')[0];
+        // let name = 'chart';
+        // svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        // let svgData = svgEl.outerHTML;
+        // let preface = '<?xml version="1.0" standalone="no"?>\r\n';
+        // let svgBlob = new Blob([preface, svgData], {
+        //   type: "image/svg+xml;charset=utf-8"
+        // });
+        // let svgUrl = URL.createObjectURL(svgBlob);
+        // let downloadLink = document.createElement('a');
+        // downloadLink.href = svgUrl;
+        // downloadLink.download = name;
+        // document.body.appendChild(downloadLink);
+        // downloadLink.click();
+        // document.body.removeChild(downloadLink);
+      },
+      savePng() {
+        (0, _saveSvgAsPng.saveSvgAsPng)(Ember.$('.google-chart svg')[0], 'chart.png');
       }
     }
   });
@@ -3627,7 +3654,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "GDioGfI7", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[10,\"class\",\"w-100 d-block\"],[8],[0,\"\\n  \"],[6,\"h3\"],[10,\"class\",\"mb-4\"],[8],[0,\"Timeline\"],[9],[0,\"\\n\"],[4,\"if\",[[22,[\"model\",\"length\"]]],null,{\"statements\":[[4,\"unless\",[[22,[\"loaded\"]]],null,{\"statements\":[[0,\"    \"],[6,\"div\"],[10,\"class\",\"alert alert-info text-center mb-auto mx-auto\"],[8],[0,\"\\n      \"],[6,\"h1\"],[8],[1,[26,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\" Loading Chart...\"],[9],[0,\"\\n    \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[1,[26,\"timeline-chart\",null,[[\"class\",\"data\",\"options\",\"packagesDidLoad\"],[\"w-100\",[22,[\"model\"]],[22,[\"options\"]],[26,\"action\",[[21,0,[]],\"onGoogleLoad\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[6,\"div\"],[10,\"class\",\"alert alert-warning text-center mb-auto mx-auto\"],[8],[0,\"\\n      \"],[6,\"h3\"],[8],[1,[26,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\" No chartable components found\"],[9],[0,\"\\n      \"],[6,\"p\"],[8],[0,\"(Components must have start and end dates to appear on the chart.\"],[9],[0,\"\\n    \"],[9],[0,\"\\n\"]],\"parameters\":[]}],[9],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdspec/pods/chart/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "wS1zTR7u", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[10,\"class\",\"w-100 d-block\"],[8],[0,\"\\n  \"],[6,\"div\"],[8],[0,\"\\n  \"],[6,\"h3\"],[10,\"class\",\"mb-4 mr-3 d-inline-block\"],[8],[0,\"Timeline\"],[9],[0,\"\\n\"],[4,\"bs-button\",null,[[\"class\",\"type\",\"size\",\"onClick\"],[\"align-text-bottom mr-1\",\"primary\",\"sm\",[26,\"action\",[[21,0,[]],[26,\"toggle\",[\"isExpanded\",[21,0,[]]],null]],null]]],{\"statements\":[[0,\"    \"],[1,[26,\"fa-icon\",[[26,\"if\",[[22,[\"isExpanded\"]],\"minus\",\"plus\"],null]],null],false],[0,\"\\n    \"],[6,\"span\"],[10,\"class\",\"align-middle\"],[8],[1,[26,\"if\",[[22,[\"isExpanded\"]],\"Collapse\",\"Expand\"],null],false],[9],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"bs-button\",null,[[\"class\",\"type\",\"size\",\"onClick\"],[\"align-text-bottom mr-1\",\"success\",\"sm\",[26,\"action\",[[21,0,[]],\"saveSvg\"],null]]],{\"statements\":[[0,\"    \"],[1,[26,\"fa-icon\",[\"image\"],null],false],[0,\"\\n    \"],[6,\"span\"],[10,\"class\",\"align-middle\"],[8],[0,\"Save SVG\"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"bs-button\",null,[[\"class\",\"type\",\"size\",\"onClick\"],[\"align-text-bottom\",\"info\",\"sm\",[26,\"action\",[[21,0,[]],\"savePng\"],null]]],{\"statements\":[[0,\"    \"],[1,[26,\"fa-icon\",[\"image\"],null],false],[0,\"\\n  \"],[6,\"span\"],[10,\"class\",\"align-middle\"],[8],[0,\"Save PNG\"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[9],[0,\"\\n\"],[4,\"if\",[[22,[\"model\",\"length\"]]],null,{\"statements\":[[4,\"unless\",[[22,[\"loaded\"]]],null,{\"statements\":[[0,\"    \"],[6,\"div\"],[10,\"class\",\"alert alert-info text-center mb-auto mx-auto\"],[8],[0,\"\\n      \"],[6,\"h1\"],[8],[1,[26,\"fa-icon\",[\"spinner\"],[[\"spin\"],[true]]],false],[0,\" Loading Chart...\"],[9],[0,\"\\n    \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[1,[26,\"timeline-chart\",null,[[\"class\",\"data\",\"options\",\"packagesDidLoad\",\"chartDidRender\"],[[26,\"if\",[[22,[\"isExpanded\"]],\"expanded-chart\",\"w-100\"],null],[22,[\"model\"]],[22,[\"options\"]],[26,\"action\",[[21,0,[]],\"onGoogleLoad\"],null],[26,\"action\",[[21,0,[]],\"chartDidRender\"],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[6,\"div\"],[10,\"class\",\"alert alert-warning text-center mb-auto mx-auto\"],[8],[0,\"\\n      \"],[6,\"h3\"],[8],[1,[26,\"fa-icon\",[\"exclamation-triangle\"],null],false],[0,\" No chartable components found\"],[9],[0,\"\\n      \"],[6,\"p\"],[8],[0,\"(Components must have start and end dates to appear on the chart.\"],[9],[0,\"\\n    \"],[9],[0,\"\\n\"]],\"parameters\":[]}],[9],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "mdspec/pods/chart/template.hbs" } });
 });
 ;define('mdspec/pods/component/edit/controller', ['exports'], function (exports) {
   'use strict';

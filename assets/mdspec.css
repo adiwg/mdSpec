@@ -6694,3 +6694,6 @@ a.text-warning:hover, a.text-warning:focus {
 
 .ember-basic-dropdown-content-wormhole-origin {
   display: inline; }
+
+.expanded-chart {
+  width: 2000px; }
