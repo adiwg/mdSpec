@@ -13,6 +13,7 @@ export default Component.extend({
   classNameBindings: ['over:drag-over'],
 
   over: false,
+  order: false,
   collapsed: false,
   draggable: computed('model.fulfills.length', function() {
     return ! this.get('model.fulfills.length');
@@ -69,6 +70,15 @@ export default Component.extend({
     },
     dragOut() {
       this.toggleProperty('over');
+    },
+    orderIt(item, opts){
+      console.log(opts);
+    },
+    orderOver() {
+      this.toggleProperty('order');
+    },
+    orderOut() {
+      this.toggleProperty('order');
     },
     toggleCollapse(event){
       event.stopPropagation();

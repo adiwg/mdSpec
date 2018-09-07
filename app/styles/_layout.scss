@@ -34,19 +34,23 @@
 
     .list-group-item {
       padding: 0;
+      border-color: $gray-300;
 
       &.drag-over {
         background-color: $warning;
 
-        .md-item-wrapper {
-          background-color: inherit;
+         > .md-item-wrapper {
+          background-color: inherit !important;
         }
       }
 
       .md-item-wrapper {
         color: $primary;
-        padding-bottom: .75rem;
-        padding-top: .75rem;
+
+        .md-item {
+          padding-bottom: .75rem;
+          padding-top: .75rem;
+        }
 
         .text-level {
           color: $gray-500;
@@ -54,6 +58,7 @@
 
         .icon:hover {
           color: $warning;
+          cursor: pointer;
         }
 
         &:hover {
@@ -70,6 +75,16 @@
             color: $gray-300;
           }
         }
+      }
+    }
+
+    .sidebar-order {
+      height: 3px;
+
+      &.over {
+        background-color: $dark;
+        height: 4px;
+        //transition: all .5s linear;
       }
     }
   }
