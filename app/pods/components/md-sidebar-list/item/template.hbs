@@ -1,6 +1,12 @@
-{{#draggable-object content=this dragHandle=".js-dragHandle"}}
+{{#draggable-object content=this dragHandle=".js-dragHandle"
+  dragStartAction=(action "dragStartAction")
+  dragEndAction=(action "dragEndAction")
+}}
   {{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper"}}
-    {{#draggable-object-target class="md-item d-flex justify-content-between align-items-center pr-1" action="dropIt" dragOverAction="dragOver" dragOutAction="dragOut"}}
+    {{#draggable-object-target class="md-item d-flex justify-content-between align-items-center pr-1"
+      action="dropIt"
+      dragOverAction=(action "dragOver") dragOutAction="dragOut"
+    }}
       <div class="{{if draggable "js-dragHandle dragHandle icon" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
       {{#if collapsible}}
         <div class="d-inline-flex ml-2 icon" onClick={{action "toggleCollapse"}}>
@@ -26,7 +32,7 @@
 
 {{#if model.children.length}}
 {{#bs-collapse collapsed=collapsed class="list-group-item"}}
-  {{md-sidebar-list model=model.children parentItem=this}}
+  {{md-sidebar-list model=model.children parentItem=this dragging=dragging}}
 {{/bs-collapse}}
 {{/if}}
 {{!-- {{#each model.children as |child|}}

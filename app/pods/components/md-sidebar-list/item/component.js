@@ -2,7 +2,10 @@ import Component from '@ember/component';
 import {
   computed
 } from '@ember/object';
-//import { filterBy } from '@ember/object/computed';
+import {
+  not,
+  bool
+} from '@ember/object/computed';
 import {
   htmlSafe
 } from '@ember/string';
@@ -10,16 +13,21 @@ import {
 export default Component.extend({
   tagName: 'li',
   classNames: ['list-group-item'],
-  classNameBindings: ['over:drag-over'],
+  classNameBindings: ['isOver:drag-over'],
 
   over: false,
   order: false,
+  isDragging: false,
   collapsed: false,
-  draggable: computed('model.fulfills.length', function() {
-    return ! this.get('model.fulfills.length');
+  isOver: computed('isDragging', 'over', function () {
+    return !this.get('isDragging') && this.get('over');
   }),
-  collapsible:computed('type','model.children.[]', function() {
-    return this.get('type')==='module' && this.get('model.children.length');
+  draggable: computed('model.fulfills.length', function () {
+    return !this.get('model.fulfills.length');
+  }),
+  collapsible: computed('type', 'model.children.[]', function () {
+    return this.get('type') === 'module' && this.get(
+      'model.children.length');
   }),
   type: computed('parentItem', function () {
     let parent = this.get('parentItem');
@@ -53,34 +61,53 @@ export default Component.extend({
 
       // if(this.get('level') <= item.get('level') && topItem != top) {
       if(!this.get('model.fullpath').includes(model.get('id'))) {
-        model.get('fulfills').forEach((req)=>{
-            req.get('fulfilledBy').removeObject(model);
-            req.save();
+        model.get('fulfills').forEach((req) => {
+          req.get('fulfilledBy').removeObject(model);
+          req.save();
         });
 
         model.set('fulfills', []);
         model.set('parent', this.get('model'));
 
-
         model.save();
       }
     },
     dragOver() {
-      this.toggleProperty('over');
+      console.info(this.get('dragging'));
+      let model = this.get('dragging.model');
+
+      if(!this.get('model.fullpath').includes(model.get('id'))) {
+        this.set('over', true);
+      }
+      console.info([this.get('model.fullpath'), model.get('id')]);
     },
     dragOut() {
-      this.toggleProperty('over');
+      this.set('over', false);
     },
-    orderIt(item, opts){
+    orderIt(item, opts) {
       console.log(opts);
     },
     orderOver() {
-      this.toggleProperty('order');
+      let model = this.get('dragging.model');
+      let notParent = !this.get('model.fullpath').includes(model.get('id'));
+      let isSibling = this.get('model.parent.id') === model.get('parent.id');
+
+      if(notParent && isSibling) {
+        this.set('order', true);
+      }
     },
     orderOut() {
-      this.toggleProperty('order');
+      this.set('order', false);
     },
-    toggleCollapse(event){
+    dragStartAction(item) {
+      this.set('isDragging', true);
+      this.set('dragging', item);
+    },
+    dragEndAction() {
+      this.set('isDragging', false);
+      this.set('dragging', null);
+    },
+    toggleCollapse(event) {
       event.stopPropagation();
       this.toggleProperty('collapsed');
     }
