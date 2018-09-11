@@ -76,7 +76,7 @@
 
               {{#if req.fulfilledBy.length}}
                 <p><span class="text-success">Fulfilled by:</span>
-                  {{#each req.fulfilledBy as |c index|}}{{if index ", "}}<a href="#{{concat "comp-" c.id}}">{{c.title}}</a>{{/each}}
+                  {{#each req.fulfilledBy as |c index|}}{{if index ", "}}<a href="#{{concat "comp-" c.id}}">{{get sections c.id}} {{c.title}}</a>{{/each}}
                 </p>
               {{else}}
               <p><span class="text-danger">Not Fulfilled</span></p>
@@ -89,5 +89,5 @@
 </div>
 
 {{#if model.children.length}}
-  {{md-report modules=model.children parentItem=this}}
+  {{md-report modules=model.children parentItem=this sections=sections}}
 {{/if}}

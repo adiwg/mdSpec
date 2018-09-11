@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
+import { once } from '@ember/runloop';
 
 export default Component.extend({
   tagName: 'li',
@@ -31,4 +32,13 @@ export default Component.extend({
 
     return htmlSafe('padding-left: ' + pad + 'rem;');
   }),
+
+  didReceiveAttrs() {
+    this._super(...arguments);
+
+    //console.log(this.get('sections'));
+    once(this, () => this.set('sections.' + this.get('model.id'), this.get(
+      'levelText')));
+  }
+
 });
