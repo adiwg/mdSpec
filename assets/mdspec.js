@@ -3244,6 +3244,9 @@
     contact: attr('string'),
     presence: attr('string'),
     mapping: attr('string'),
+    order: attr('string', {
+      //defaultValue: () => v4().substring(0,7)
+    }),
     startDate: attr('date', {
       defaultValue: null
     }),
@@ -3307,7 +3310,14 @@
     fulfills: hasMany('requirement', {
       inverse: 'fulfilledBy',
       save: true
-    })
+    }),
+
+    didLoad() {
+      if (!this.get('order')) {
+        this.set('order', (0, _emberUuid.v4)().substring(0, 7));
+        this.save();
+      }
+    }
   });
 });
 ;define('mdspec/models/coordinator', ['exports', 'mdspec/models/obj-hash'], function (exports, _objHash) {
@@ -3903,10 +3913,11 @@
   });
   exports.default = Ember.Component.extend({
     tagName: 'ul',
-    classNames: ['list-group', 'list-group-flush', 'w-100']
+    classNames: ['list-group', 'list-group-flush', 'w-100'],
+    dragging: null
   });
 });
-;define('mdspec/pods/components/md-sidebar-list/item/component', ['exports'], function (exports) {
+;define('mdspec/pods/components/md-sidebar-list/item/component', ['exports', 'mudder'], function (exports, _mudder) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -3915,12 +3926,18 @@
   exports.default = Ember.Component.extend({
     tagName: 'li',
     classNames: ['list-group-item'],
-    classNameBindings: ['over:drag-over'],
+    classNameBindings: ['isOver:drag-over', 'notDroppable'],
 
     over: false,
+    order: false,
+    isDragging: false,
     collapsed: false,
-    draggable: Ember.computed('model.fulfills.length', function () {
-      return !this.get('model.fulfills.length');
+    isOver: Ember.computed('isDragging', 'over', function () {
+      return !this.get('isDragging') && this.get('over');
+    }),
+    draggable: Ember.computed('model.{parent.children.length,fulfills.length}', function () {
+      return !this.get('model.fulfills.length') || this.get('model.parent.children.length') > 1;
+      //return true;
     }),
     collapsible: Ember.computed('type', 'model.children.[]', function () {
       return this.get('type') === 'module' && this.get('model.children.length');
@@ -3954,25 +3971,83 @@
     actions: {
       dropIt(item) {
         let model = item.get('model');
+        // let notParent = !this.get('model.fullpath').includes(model.get('id'));
+        // let draggable = !model.get('fulfills.length');
 
         // if(this.get('level') <= item.get('level') && topItem != top) {
-        if (!this.get('model.fullpath').includes(model.get('id'))) {
-          model.get('fulfills').forEach(req => {
-            req.get('fulfilledBy').removeObject(model);
-            req.save();
-          });
+        //if(notParent && draggable) {
+        model.get('fulfills').forEach(req => {
+          req.get('fulfilledBy').removeObject(model);
+          req.save();
+        });
 
-          model.set('fulfills', []);
-          model.set('parent', this.get('model'));
+        model.set('fulfills', []);
+        model.set('parent', this.get('model'));
 
-          model.save();
-        }
+        model.save();
+        //}
+      },
+      validateDragEvent() {
+        let model = this.get('dragging.model');
+        let notParent = !this.get('model.fullpath').includes(model.get('id'));
+        let draggable = !this.get('dragging.model.fulfills.length');
+
+        return notParent && draggable;
       },
       dragOver() {
-        this.toggleProperty('over');
+        //console.info(this.get('dragging'));
+        // let model = this.get('dragging.model');
+        // let notParent = !this.get('model.fullpath').includes(model.get('id'));
+        // let draggable = !this.get('dragging.model.fulfills.length');
+        //
+        //if(notParent && draggable) {
+        this.set('over', true);
+        // }
+        // console.info([this.get('model.fullpath'), model.get('id')]);
       },
       dragOut() {
-        this.toggleProperty('over');
+        this.set('over', false);
+      },
+      orderIt(item) {
+        let models = this.get('parentItem.model.children') || this.get('modules');
+        let siblings = models.sortBy('order');
+        let idx = siblings.indexOf(this.get('model'));
+
+        if (idx === siblings.length - 1) {
+          //add to end
+          let num = _mudder.default.base36.stringToNumber(this.get('model.order'));
+
+          item.set('model.order', _mudder.default.base36.numberToString(num + 1000));
+        } else {
+          //insert between
+          let newOrder = _mudder.default.base36.mudder(this.get('model.order'), siblings.objectAt(idx + 1).get('order'));
+
+          //console.log(this.get('model.order'));
+          //console.log(siblings.objectAt(idx + 1).get('order'));
+
+          item.set('model.order', newOrder[0]);
+        }
+        item.get('model').save();
+      },
+      orderOver() {
+        let model = this.get('dragging.model');
+        let notParent = !this.get('model.fullpath').includes(model.get('id'));
+        let isSibling = this.get('model.parent.id') === model.get('parent.id');
+
+        if (notParent && isSibling) {
+          this.set('order', true);
+        }
+      },
+      orderOut() {
+        this.set('order', false);
+      },
+      dragStartAction(item) {
+        this.set('isDragging', true);
+        this.set('dragging', item);
+      },
+      dragEndAction() {
+        this.set('isDragging', false);
+        this.set('dragging', null);
       },
       toggleCollapse(event) {
         event.stopPropagation();
@@ -3987,7 +4062,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "5UV4PdBJ", "block": "{\"symbols\":[],\"statements\":[[4,\"draggable-object\",null,[[\"content\",\"dragHandle\"],[[21,0,[]],\".js-dragHandle\"]],{\"statements\":[[4,\"draggable-object-target\",null,[[\"action\",\"dragOverAction\",\"dragOutAction\"],[\"dropIt\",\"dragOver\",\"dragOut\"]],{\"statements\":[[4,\"link-to\",[[26,\"concat\",[[22,[\"type\"]],\".edit\"],null],[22,[\"model\"]]],[[\"tagName\",\"class\"],[\"div\",\"md-item-wrapper d-flex justify-content-between align-items-center pr-1\"]],{\"statements\":[[0,\"  \"],[6,\"div\"],[11,\"class\",[27,[[26,\"if\",[[22,[\"draggable\"]],\"js-dragHandle dragHandle icon\",\"text-secondary cursor-not\"],null],\" d-inline-flex ml-2\"]]],[8],[1,[26,\"fa-icon\",[\"bars\"],null],false],[9],[0,\"\\n\"],[4,\"if\",[[22,[\"collapsible\"]]],null,{\"statements\":[[0,\"    \"],[6,\"div\"],[10,\"class\",\"d-inline-flex ml-2 icon\"],[11,\"onClick\",[26,\"action\",[[21,0,[]],\"toggleCollapse\"],null]],[8],[0,\"\\n      \"],[1,[26,\"fa-icon\",[[26,\"if\",[[22,[\"collapsed\"]],\"folder\",\"folder-open\"],null]],[[\"fixedWidth\"],[true]]],false],[0,\"\\n    \"],[9],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[6,\"div\"],[10,\"class\",\"d-inline-flex ml-2\"],[8],[0,\"\\n      \"],[6,\"i\"],[10,\"class\",\"fa-fw d-inline-block\"],[8],[9],[0,\"\\n    \"],[9],[0,\"\\n\"]],\"parameters\":[]}],[0,\"  \"],[6,\"div\"],[10,\"class\",\"text-truncate flex-grow-1\"],[11,\"style\",[20,\"padding\"]],[8],[0,\"\\n    \"],[6,\"span\"],[10,\"class\",\"text-level\"],[8],[1,[20,\"levelText\"],false],[9],[0,\" \"],[1,[22,[\"model\",\"title\"]],false],[0,\"\\n  \"],[9],[0,\"\\n  \"],[6,\"span\"],[11,\"class\",[27,[\"badge badge-\",[22,[\"model\",\"fulfilledStyle\"]],\" badge-pill\"]]],[8],[1,[22,[\"model\",\"fulfilled\",\"length\"]],false],[0,\"/\"],[1,[22,[\"model\",\"requirements\",\"length\"]],false],[9],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[22,[\"model\",\"children\",\"length\"]]],null,{\"statements\":[[4,\"bs-collapse\",null,[[\"collapsed\",\"class\"],[[22,[\"collapsed\"]],\"list-group-item\"]],{\"statements\":[[0,\"  \"],[1,[26,\"md-sidebar-list\",null,[[\"model\",\"parentItem\"],[[22,[\"model\",\"children\"]],[21,0,[]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdspec/pods/components/md-sidebar-list/item/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "NFZAK6+0", "block": "{\"symbols\":[],\"statements\":[[1,[26,\"log\",[[26,\"concat\",[[22,[\"model\",\"title\"]],\":\",[22,[\"model\",\"order\"]]],null]],null],false],[0,\"\\n\"],[4,\"draggable-object\",null,[[\"content\",\"dragHandle\",\"dragStartAction\",\"dragEndAction\"],[[21,0,[]],\".js-dragHandle\",[26,\"action\",[[21,0,[]],\"dragStartAction\"],null],[26,\"action\",[[21,0,[]],\"dragEndAction\"],null]]],{\"statements\":[[4,\"link-to\",[[26,\"concat\",[[22,[\"type\"]],\".edit\"],null],[22,[\"model\"]]],[[\"tagName\",\"class\"],[\"div\",\"md-item-wrapper\"]],{\"statements\":[[4,\"draggable-object-target\",null,[[\"class\",\"action\",\"validateDragEvent\",\"dragOverAction\",\"dragOutAction\"],[\"md-item d-flex justify-content-between align-items-center pr-1\",\"dropIt\",[26,\"action\",[[21,0,[]],\"validateDragEvent\"],null],[26,\"action\",[[21,0,[]],\"dragOver\"],null],\"dragOut\"]],{\"statements\":[[0,\"      \"],[6,\"div\"],[11,\"class\",[27,[[26,\"if\",[[22,[\"draggable\"]],\"js-dragHandle dragHandle icon\",\"text-secondary cursor-not\"],null],\" d-inline-flex ml-2\"]]],[8],[1,[26,\"fa-icon\",[\"bars\"],null],false],[9],[0,\"\\n\"],[4,\"if\",[[22,[\"collapsible\"]]],null,{\"statements\":[[0,\"        \"],[6,\"div\"],[10,\"class\",\"d-inline-flex ml-2 icon\"],[11,\"onClick\",[26,\"action\",[[21,0,[]],\"toggleCollapse\"],null]],[8],[0,\"\\n          \"],[1,[26,\"fa-icon\",[[26,\"if\",[[22,[\"collapsed\"]],\"folder\",\"folder-open\"],null]],[[\"fixedWidth\"],[true]]],false],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"        \"],[6,\"div\"],[10,\"class\",\"d-inline-flex ml-2\"],[8],[0,\"\\n          \"],[6,\"i\"],[10,\"class\",\"fa-fw d-inline-block\"],[8],[9],[0,\"\\n        \"],[9],[0,\"\\n\"]],\"parameters\":[]}],[0,\"      \"],[6,\"div\"],[10,\"class\",\"text-truncate flex-grow-1\"],[11,\"style\",[20,\"padding\"]],[8],[0,\"\\n        \"],[6,\"span\"],[10,\"class\",\"text-level\"],[8],[1,[20,\"levelText\"],false],[9],[0,\" \"],[1,[22,[\"model\",\"title\"]],false],[0,\"\\n      \"],[9],[0,\"\\n      \"],[4,\"if\",[[22,[\"model\",\"fulfills\",\"length\"]]],null,{\"statements\":[[6,\"span\"],[10,\"class\",\"badge badge-pill text-success bg-transparent fulfills\"],[8],[1,[26,\"fa-icon\",[\"check\"],null],false],[9]],\"parameters\":[]},null],[0,\"\\n      \"],[6,\"span\"],[11,\"class\",[27,[\"badge badge-\",[22,[\"model\",\"fulfilledStyle\"]],\" badge-pill\"]]],[8],[1,[22,[\"model\",\"fulfilled\",\"length\"]],false],[0,\"/\"],[1,[22,[\"model\",\"requirements\",\"length\"]],false],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"draggable-object-target\",null,[[\"class\",\"action\",\"dragOverAction\",\"dragOutAction\"],[[26,\"concat\",[\"sidebar-order \",[26,\"if\",[[22,[\"order\"]],\"over\"],null]],null],\"orderIt\",\"orderOver\",\"orderOut\"]],{\"statements\":[],\"parameters\":[]},null]],\"parameters\":[]},null]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[22,[\"model\",\"children\",\"length\"]]],null,{\"statements\":[[4,\"bs-collapse\",null,[[\"collapsed\",\"class\"],[[22,[\"collapsed\"]],\"list-group-item\"]],{\"statements\":[[0,\"  \"],[1,[26,\"md-sidebar-list\",null,[[\"model\",\"parentItem\",\"dragging\"],[[22,[\"model\",\"children\"]],[21,0,[]],[22,[\"dragging\"]]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdspec/pods/components/md-sidebar-list/item/template.hbs" } });
 });
 ;define("mdspec/pods/components/md-sidebar-list/template", ["exports"], function (exports) {
   "use strict";
@@ -3995,7 +4070,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "v/atI6pm", "block": "{\"symbols\":[\"mod\",\"index\"],\"statements\":[[4,\"each\",[[22,[\"model\"]]],null,{\"statements\":[[0,\"  \"],[1,[26,\"md-sidebar-list/item\",null,[[\"model\",\"parentItem\",\"index\"],[[21,1,[]],[22,[\"parentItem\"]],[21,2,[]]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdspec/pods/components/md-sidebar-list/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "5P2j3JDY", "block": "{\"symbols\":[\"mod\",\"index\"],\"statements\":[[4,\"each\",[[26,\"sort-by\",[\"order\",[22,[\"model\"]]],null]],null,{\"statements\":[[0,\"  \"],[1,[26,\"md-sidebar-list/item\",null,[[\"model\",\"parentItem\",\"modules\",\"index\",\"dragging\"],[[21,1,[]],[22,[\"parentItem\"]],[26,\"unless\",[[22,[\"parentItem\"]],[22,[\"model\"]]],null],[21,2,[]],[22,[\"dragging\"]]]]],false],[0,\"\\n\"]],\"parameters\":[1,2]},null]],\"hasEval\":false}", "meta": { "moduleName": "mdspec/pods/components/md-sidebar-list/template.hbs" } });
 });
 ;define('mdspec/pods/components/md-spec-form/component', ['exports'], function (exports) {
   'use strict';
@@ -4883,7 +4958,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdspec/app")["default"].create({"name":"mdspec","version":"0.1.0+c01e9096"});
+            require("mdspec/app")["default"].create({"name":"mdspec","version":"0.1.0+8fe8a5ea"});
           }
         
 //# sourceMappingURL=mdspec.map

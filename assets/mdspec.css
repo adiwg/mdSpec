@@ -6334,19 +6334,23 @@ a.text-dark:hover, a.text-dark:focus {
     position: sticky;
     top: 60px; }
     .sidebar .sidebar-sticky .list-group-item {
-      padding: 0; }
+      padding: 0;
+      border-color: #dee2e6; }
       .sidebar .sidebar-sticky .list-group-item.drag-over {
         background-color: #ffc107; }
-        .sidebar .sidebar-sticky .list-group-item.drag-over .md-item-wrapper {
-          background-color: inherit; }
+        .sidebar .sidebar-sticky .list-group-item.drag-over > .md-item-wrapper {
+          background-color: inherit !important; }
       .sidebar .sidebar-sticky .list-group-item .md-item-wrapper {
         color: #007bff;
-        padding-bottom: .75rem;
-        padding-top: .75rem; }
+        padding-top: .15rem; }
+        .sidebar .sidebar-sticky .list-group-item .md-item-wrapper .md-item {
+          padding-bottom: .6rem;
+          padding-top: .6rem; }
         .sidebar .sidebar-sticky .list-group-item .md-item-wrapper .text-level {
           color: #adb5bd; }
         .sidebar .sidebar-sticky .list-group-item .md-item-wrapper .icon:hover {
-          color: #ffc107; }
+          color: #ffc107;
+          cursor: pointer; }
         .sidebar .sidebar-sticky .list-group-item .md-item-wrapper:hover {
           background-color: #f0f7ff;
           cursor: pointer; }
@@ -6354,8 +6358,16 @@ a.text-dark:hover, a.text-dark:focus {
           background-color: #3395ff;
           color: #fff;
           cursor: default; }
+          .sidebar .sidebar-sticky .list-group-item .md-item-wrapper.active .fulfills {
+            color: #fff !important; }
           .sidebar .sidebar-sticky .list-group-item .md-item-wrapper.active .text-level {
             color: #dee2e6; }
+    .sidebar .sidebar-sticky .sidebar-order {
+      height: .15rem;
+      transition: all .2s linear; }
+      .sidebar .sidebar-sticky .sidebar-order.over {
+        background-color: #dee2e6;
+        height: 2.75rem; }
 
 .splitter {
   background-color: #e6f2ff;
