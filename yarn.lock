@@ -7007,6 +7007,10 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
+mudder@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/mudder/-/mudder-1.0.4.tgz#f827f513b14d32cab650beca1cf3ed7430adf106"
+
 mustache@^2.2.1:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/mustache/-/mustache-2.3.0.tgz#4028f7778b17708a489930a6e52ac3bca0da41d0"

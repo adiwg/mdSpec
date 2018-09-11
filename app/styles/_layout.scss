@@ -28,10 +28,6 @@
     position: sticky;
     top: 60px;
 
-    // .list-group-item {
-    //   padding-left: .75rem;
-    // }
-
     .list-group-item {
       padding: 0;
       border-color: $gray-300;
@@ -46,10 +42,11 @@
 
       .md-item-wrapper {
         color: $primary;
+        padding-top: .15rem;
 
         .md-item {
-          padding-bottom: .75rem;
-          padding-top: .75rem;
+          padding-bottom: .6rem;
+          padding-top: .6rem;
         }
 
         .text-level {
@@ -71,6 +68,10 @@
           color: $white;
           cursor: default;
 
+          .fulfills {
+            color: $white !important;
+          }
+
           .text-level {
             color: $gray-300;
           }
@@ -79,12 +80,12 @@
     }
 
     .sidebar-order {
-      height: 3px;
+      height: .15rem;
+      transition: all .2s linear;
 
       &.over {
-        background-color: $dark;
-        height: 4px;
-        //transition: all .5s linear;
+        background-color: $gray-300;
+        height: 2.75rem;
       }
     }
   }

@@ -1,3 +1,4 @@
+{{log (concat model.title ":" model.order)}}
 {{#draggable-object content=this dragHandle=".js-dragHandle"
   dragStartAction=(action "dragStartAction")
   dragEndAction=(action "dragEndAction")
@@ -5,6 +6,7 @@
   {{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper"}}
     {{#draggable-object-target class="md-item d-flex justify-content-between align-items-center pr-1"
       action="dropIt"
+      validateDragEvent=(action "validateDragEvent")
       dragOverAction=(action "dragOver") dragOutAction="dragOut"
     }}
       <div class="{{if draggable "js-dragHandle dragHandle icon" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
@@ -20,6 +22,7 @@
       <div class="text-truncate flex-grow-1" style={{padding}}>
         <span class="text-level">{{levelText}}</span> {{model.title}}
       </div>
+      {{#if model.fulfills.length}}<span class="badge badge-pill text-success bg-transparent fulfills">{{fa-icon "check"}}</span>{{/if}}
       <span class="badge badge-{{model.fulfilledStyle}} badge-pill">{{model.fulfilled.length}}/{{model.requirements.length}}</span>
     {{/draggable-object-target}}
 

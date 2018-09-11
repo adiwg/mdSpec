@@ -64,6 +64,9 @@ export default Model.extend(Validations, {
   contact: attr('string'),
   presence: attr('string'),
   mapping: attr('string'),
+  order: attr('string', {
+    //defaultValue: () => v4().substring(0,7)
+  }),
   startDate: attr('date', {
     defaultValue: null
   }),
@@ -130,5 +133,12 @@ export default Model.extend(Validations, {
   fulfills: hasMany('requirement', {
     inverse: 'fulfilledBy',
     save: true
-  })
+  }),
+
+  didLoad(){
+    if(!this.get('order')){
+      this.set('order', v4().substring(0,7));
+      this.save();
+    }
+  }
 });
