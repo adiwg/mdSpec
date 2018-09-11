@@ -1,4 +1,4 @@
-{{#each modules as |mod index|}}
+{{#each (sort-by "order" modules) as |mod index|}}
   {{md-report/component model=mod parentItem=parentItem index=index}}
   {{else}}
   <li>
