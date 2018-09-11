@@ -4958,7 +4958,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdspec/app")["default"].create({"name":"mdspec","version":"0.1.0+8fe8a5ea"});
+            require("mdspec/app")["default"].create({"name":"mdspec","version":"0.1.0+2c58de74"});
           }
         
 //# sourceMappingURL=mdspec.map
