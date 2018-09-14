@@ -19,7 +19,7 @@ module.exports = function(defaults) {
       }
     },
     'ember-composable-helpers': {
-      only: ['inc', 'toggle', 'sort-by']
+      only: ['inc', 'toggle', 'sort-by', 'reject-by']
     }
   });
 

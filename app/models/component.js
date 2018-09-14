@@ -53,6 +53,30 @@ const getParents = (item, acc) => {
   return getParents(item.get('parent'), parents);
 }
 
+const getDescendants = (item, acc) => {
+  let descendants = acc || {
+    components: [],
+    requirements: []
+  };
+  let requirements = item.get('requirements');
+
+  descendants.components.pushObject(item.get('id'));
+
+  if(requirements && requirements.length) {
+    descendants.requirements.pushObjects(requirements.mapBy('id'));
+  }
+
+  if(!item.get('children.length')) {
+    return descendants;
+  }
+
+  item.get('children').forEach((child) => {
+    getDescendants(child, descendants);
+  })
+
+  return descendants;
+}
+
 export default Model.extend(Validations, {
   uuid: attr('string', {
     defaultValue: () => v4()
@@ -86,7 +110,7 @@ export default Model.extend(Validations, {
   chartable: and('minDate', 'maxDate'),
 
   // childStartDates: mapBy('children', 'startDate'),
-  childStartDates: computed('children.@each.startDate', function() {
+  childStartDates: computed('children.@each.startDate', function () {
     return this.get('children').mapBy('startDate').compact();
   }),
 
@@ -96,7 +120,7 @@ export default Model.extend(Validations, {
   }),
 
   //childEndDates: mapBy('children', 'endDate'),
-  childEndDates: computed('children.@each.endDate', function() {
+  childEndDates: computed('children.@each.endDate', function () {
     return this.get('children').mapBy('endDate').compact();
   }),
 
@@ -107,6 +131,10 @@ export default Model.extend(Validations, {
 
   fullpath: computed('parent', function () {
     return getParents(this);
+  }),
+
+  descendants: computed('children.[]','requirements', function() {
+    return getDescendants(this);
   }),
 
   deletable: computed('children.[]', 'fulfills.[]', function () {
@@ -135,9 +163,9 @@ export default Model.extend(Validations, {
     save: true
   }),
 
-  didLoad(){
-    if(!this.get('order')){
-      this.set('order', v4().substring(0,7));
+  didLoad() {
+    if(!this.get('order')) {
+      this.set('order', v4().substring(0, 7));
       this.save();
     }
   }

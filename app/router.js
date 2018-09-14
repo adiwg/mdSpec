@@ -28,6 +28,7 @@ Router.map(function () {
   this.route('not-found', {
     path: '/*path'
   });
+  this.route('save');
 });
 
 export default Router;

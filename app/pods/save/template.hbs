@@ -1,0 +1,31 @@
+<div class="container">
+  <h3>Save to a File</h3>
+  <hr>
+  <p>
+  {{#bs-button type="success" class="mr-2"}}
+    {{fa-icon "download"}} <span class="align-middle">Save Selected Modules</span>
+  {{/bs-button}}
+  {{#bs-button type="primary" class=""}}
+    {{fa-icon "download"}} <span class="align-middle">Save All Modules</span>
+  {{/bs-button}}
+  </p>
+
+  {{#multiselect-checkboxes
+    options=(reject-by "parent.id" (sort-by "order" model))
+    selection=selected
+    labelProperty="title"
+    updateSelectionValue=true
+    tagName="div"
+    class="list-group" as |item isSelected|
+  }}
+    <label class="list-group-item list-group-item-action cursor-pointer {{if isSelected "list-group-item-success"}}">
+      <h5>
+        {{input type="checkbox" checked=isSelected}}
+        {{item.title}}
+      </h5>
+      {{#if item.description}}
+        <p>{{item.description}}</p>
+      {{/if}}
+    </label>
+  {{/multiselect-checkboxes}}
+</div>
