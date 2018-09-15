@@ -1,0 +1,74 @@
+<div class="container">
+  {{#unless previewing}}
+    <h3>Load Files</h3>
+    {{!-- <hr> --}}
+    {{#file-dropzone class="h-50 text-center" name="db" as |dropzone queue|}}
+      {{#if dropzone.active}}
+      <div class="card h-100 text-white {{if dropzone.valid "bg-success" "bg-danger"}}">
+        <div class="card-body">
+          {{#if dropzone.valid}}
+            <h4>
+              {{fa-icon "check" size=5}}
+              <span class="align-middle">Drop to upload</span>
+            </h4>
+          {{else}}
+          <h4>
+            {{fa-icon "exclamation" size=5}}
+            <span class="align-middle">Invalid file type. Must be a <em>json</em> file.</span>
+          </h4>
+          {{/if}}
+        </div>
+      </div>
+      {{else if queue.files.length}}
+      <div class="card h-100 text-white bg-info">
+        <div class="card-body">
+          <h4>
+            {{fa-icon "spinner" size=5 spin=true}}
+            <span class="align-middle">Uploading {{queue.files.length}} files. ({{queue.progress}}%)</span>
+          </h4>
+        </div>
+      </div>
+      {{else}}
+        <div class="card h-100">
+          <div class="card-body">
+            {{#if dropzone.supported}}
+              <div class="card-title">
+                Drag and drop files onto this area to upload them
+              </div>
+            {{/if}}
+            {{#file-upload name="db"
+               accept="application/json" multiple=true
+               onfileadd=(action "loadDb") as |queue|}}
+               <a class="btn btn-success btn-lg text-white">
+                 {{#if queue.files.length}}
+                   Loading...
+                 {{else}}
+                   {{fa-icon "upload"}} <span class="align-middle">Click to Load</span>
+                 {{/if}}
+               </a>
+            {{/file-upload}}
+          </div>
+        </div>
+      {{/if}}
+    {{/file-dropzone}}
+  {{else}}
+    {{#multiselect-checkboxes
+      options=(reject-by "parentId" (sort-by "order" model))
+      selection=selected
+      labelProperty="title"
+      updateSelectionValue=true
+      tagName="div"
+      class="list-group" as |item isSelected|
+    }}
+      <label class="list-group-item list-group-item-action cursor-pointer {{if isSelected "list-group-item-success"}}">
+        <h5>
+          {{input type="checkbox" checked=isSelected}}
+          {{item.title}}
+        </h5>
+        {{#if item.description}}
+          <p>{{item.description}}</p>
+        {{/if}}
+      </label>
+    {{/multiselect-checkboxes}}
+  {{/unless}}
+</div>

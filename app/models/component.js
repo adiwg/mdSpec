@@ -11,7 +11,7 @@ import {
   computed
 } from '@ember/object';
 import {
-  and
+  and, alias
 } from '@ember/object/computed';
 
 const Validations = buildValidations({
@@ -109,6 +109,7 @@ export default Model.extend(Validations, {
   }),
   chartable: and('minDate', 'maxDate'),
 
+  parentId: alias('parent.id'),
   // childStartDates: mapBy('children', 'startDate'),
   childStartDates: computed('children.@each.startDate', function () {
     return this.get('children').mapBy('startDate').compact();

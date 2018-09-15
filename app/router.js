@@ -29,6 +29,7 @@ Router.map(function () {
     path: '/*path'
   });
   this.route('save');
+  this.route('import');
 });
 
 export default Router;

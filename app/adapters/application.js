@@ -41,6 +41,7 @@ export default Adapter.extend({
   init() {
     this._super(...arguments);
     this.set('db', createDb());
+    this.set('importDb', new PouchDB('importSpecs'));
 
     //console.log(this.get('db').allDocs({include_docs: true, attachments: true}));
   },

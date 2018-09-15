@@ -11,7 +11,7 @@
   </p>
 
   {{#multiselect-checkboxes
-    options=(reject-by "parent.id" (sort-by "order" model))
+    options=(reject-by "parentId" (sort-by "order" model))
     selection=selected
     labelProperty="title"
     updateSelectionValue=true

@@ -78,8 +78,11 @@ export default Component.extend({
       model.save();
       //}
     },
-    validateDragEvent() {
+    validateDragEvent(type) {
       let model = this.get('dragging.model');
+
+      if(!model || model.modelName !== 'component') return false;
+
       let notParent = !this.get('model.fullpath').includes(model.get('id'));
       let draggable = !this.get('dragging.model.fulfills.length');
 
@@ -124,6 +127,9 @@ export default Component.extend({
     },
     orderOver() {
       let model = this.get('dragging.model');
+
+      if(!model || model.modelName !== 'component') return false;
+
       let notParent = !this.get('model.fullpath').includes(model.get('id'));
       let isSibling = this.get('model.parent.id') === model.get('parent.id');
 

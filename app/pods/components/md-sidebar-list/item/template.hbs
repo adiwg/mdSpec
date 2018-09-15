@@ -6,7 +6,7 @@
   {{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper"}}
     {{#draggable-object-target class="md-item d-flex justify-content-between align-items-center pr-1"
       action="dropIt"
-      validateDragEvent=(action "validateDragEvent")
+      validateDragEvent=(action "validateDragEvent" "sidebar")
       dragOverAction=(action "dragOver") dragOutAction="dragOut"
     }}
       <div class="{{if draggable "js-dragHandle dragHandle icon" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
