@@ -78,11 +78,12 @@ export default Component.extend({
       model.save();
       //}
     },
-    validateDragEvent(type) {
-      let model = this.get('dragging.model');
+    validateDragEvent() {
+      let name = this.get('dragging.model.constructor.modelName');
 
-      if(!model || model.modelName !== 'component') return false;
+      if(name !== 'component') return false;
 
+      let model =  this.get('dragging.model');
       let notParent = !this.get('model.fullpath').includes(model.get('id'));
       let draggable = !this.get('dragging.model.fulfills.length');
 

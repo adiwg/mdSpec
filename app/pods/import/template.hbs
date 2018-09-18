@@ -1,4 +1,9 @@
 <div class="container">
+  {{#if error}}
+    {{#bs-alert type="danger" onDismiss=(action (toggle "error" this))}}
+      {{fa-icon "exclamation"}} {{error}}
+    {{/bs-alert}}
+  {{/if}}
   {{#unless previewing}}
     <h3>Load Files</h3>
     {{!-- <hr> --}}
@@ -47,28 +52,60 @@
                  {{/if}}
                </a>
             {{/file-upload}}
+            <div class="">
+              {{#bs-form model=this as |form|}}
+                {{form.element controlType="checkbox" label="Preview?" property="showPreview"}}
+              {{/bs-form}}
+            </div>
           </div>
         </div>
       {{/if}}
     {{/file-dropzone}}
   {{else}}
-    {{#multiselect-checkboxes
-      options=(reject-by "parentId" (sort-by "order" model))
-      selection=selected
-      labelProperty="title"
-      updateSelectionValue=true
-      tagName="div"
-      class="list-group" as |item isSelected|
-    }}
-      <label class="list-group-item list-group-item-action cursor-pointer {{if isSelected "list-group-item-success"}}">
-        <h5>
-          {{input type="checkbox" checked=isSelected}}
-          {{item.title}}
-        </h5>
-        {{#if item.description}}
-          <p>{{item.description}}</p>
+    <div class="md-mask-content card">
+      <h3 class="card-header bg-primary text-white">Select Modules to Load</h3>
+      <div class="card-header text-center">
+        {{#bs-button type="success" class="mr-2" disabled=(if model.length false true)}}
+        {{fa-icon "check"}} <span class="align-middle">Import</span>
+        {{/bs-button}}
+        {{#bs-button type="danger" onClick=(action "cancel")}}
+        {{fa-icon "times"}} <span class="align-middle">Cancel</span>
+        {{/bs-button}}
+      </div>
+      {{#if error}}
+        <div class="card-body">
+          <strong class="text-danger">{{fa-icon "exclamation"}} {{error}}</strong>
+        </div>
+      {{else}}
+        {{#if model.length}}
+          {{#multiselect-checkboxes
+            options=(reject-by "parentId" (sort-by "order" model))
+            selection=selected
+            labelProperty="title"
+            updateSelectionValue=true
+            tagName="div"
+            class="list-group list-group-flush" as |item isSelected|
+          }}
+            <label class="list-group-item list-group-item-action cursor-pointer {{if isSelected "list-group-item-success"}}">
+              <h5>
+                {{input type="checkbox" checked=isSelected}}
+                {{item.title}}
+              </h5>
+              {{#if item.description}}
+                <p>{{item.description}}</p>
+              {{/if}}
+            </label>
+          {{/multiselect-checkboxes}}
+        {{else}}
+          <div class="card-body">
+            <h4>
+              {{fa-icon "spinner" size=5 spin=true}}
+              <span class="align-middle">Loading...</span>
+            </h4>
+          </div>
         {{/if}}
-      </label>
-    {{/multiselect-checkboxes}}
+      {{/if}}
+    </div>
+    {{md-mask}}
   {{/unless}}
 </div>
