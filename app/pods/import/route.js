@@ -13,8 +13,9 @@ export default Route.extend({
     this._super(controller, model);
 
     controller.set('previewing', false);
-    controller.set('showPreview', true);
+    controller.set('showPreview', false);
     controller.set('error', false);
+    controller.set('selected', []);
   },
 
   deactivate() {

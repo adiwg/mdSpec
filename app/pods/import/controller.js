@@ -2,10 +2,14 @@ import Controller from '@ember/controller';
 import {
   inject as service
 } from '@ember/service';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
   database: service(),
   fileQueue: service(),
+  disableImport: computed('selected.length', 'model.length', function () {
+    return !this.get('selected.length') || !this.get('model.length');
+  }),
   actions: {
     loadDb(file) {
       let self = this;
@@ -15,11 +19,10 @@ export default Controller.extend({
       if(this.get('showPreview')) {
         let adapter = this.get('database.adapter');
 
-        // change the current database to importSpecs.
-        this.set('previewing', true);
-
         adapter.destroyImportDb().then(() => {
           adapter.changeDb(adapter.get('importDb'));
+          // change the current database to importSpecs.
+          this.set('previewing', true);
 
           this.get('database').loadDb(file).then(() => {
             this.set('model', this.get('store').findAll('component', {
@@ -44,10 +47,27 @@ export default Controller.extend({
         });
       });
     },
-    loadSelected(ids) {
-      let adapter = this.store.adapterFor('component');
 
-      adapter.changeDb(adapter.get('db'));
+    loadSelected(selected) {
+      let ids = [];
+      let db = this.get('database');
+      let source = db.get('adapter.importDb');
+      let dest = db.get('adapter.mainDb');
+
+      selected.forEach(itm => {
+        ids.pushObjects(db.convertIds(itm.get('descendants')));
+      });
+
+      db.replicateDb(source, dest, {
+        doc_ids: ids
+      }).then(() => {
+        db.resetDb().then(() => this.set('previewing', false));
+      }).catch(function (err) {
+        console.log('Error loading data!', err);
+
+        self.set('error', 'Error loading data!');
+      });
+
     },
 
     cancel() {

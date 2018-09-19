@@ -65,7 +65,8 @@
     <div class="md-mask-content card">
       <h3 class="card-header bg-primary text-white">Select Modules to Load</h3>
       <div class="card-header text-center">
-        {{#bs-button type="success" class="mr-2" disabled=(if model.length false true)}}
+        {{#bs-button type="success" class="mr-2"
+          onClick=(action "loadSelected" selected) disabled=disableImport}}
         {{fa-icon "check"}} <span class="align-middle">Import</span>
         {{/bs-button}}
         {{#bs-button type="danger" onClick=(action "cancel")}}

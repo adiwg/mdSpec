@@ -12,6 +12,9 @@ import {
 import {
   alias
 } from '@ember/object/computed';
+import {
+  all
+} from 'rsvp';
 
 export default Service.extend({
   store: service(),
@@ -20,7 +23,7 @@ export default Service.extend({
   }),
   db: alias('adapter.db'),
 
-  saveDb() {
+  saveDb(ids) {
     let db = this.store.adapterFor('component').db;
     let dumpedString = '';
     let stream = new MemoryStream();
@@ -32,7 +35,8 @@ export default Service.extend({
     db.dump(stream, {
       filter: function (doc) {
         return doc._deleted !== true;
-      }
+      },
+      doc_ids: ids && ids.length ? ids : null
     }).then(function () {
       //console.log('Yay, I have a dumpedString: ' + dumpedString);
       FileSaver.saveAs(
@@ -45,19 +49,28 @@ export default Service.extend({
       console.log('Error saving db!', err);
     });
   },
+  replicateDb(source, destination, opts) {
+    let stream = new MemoryStream();
+
+    return all([
+      source.dump(stream, opts),
+      destination.load(stream)
+    ]);
+  },
+
   loadDb(file) {
     //console.log(file);
     let db = this.store.adapterFor('component').db;
 
     return file.readAsText().then((fs) => {
       return db.loadIt(JSON.parse(fs)).then(() => {
-        set(file, 'state', 'uploaded');
-      })
-      .catch(function (err) {
-        console.log('Error loading file!', err);
+          set(file, 'state', 'uploaded');
+        })
+        .catch(function (err) {
+          console.log('Error loading file!', err);
 
-        throw err;
-      });
+          throw err;
+        });
     })
   },
   destroyImportDb() {
@@ -69,10 +82,26 @@ export default Service.extend({
 
     if(adapter.get('db.name') === 'importSpecs') {
       adapter.changeDb(mainDb);
-
-      return this.get('store').findAll('component', {
-        include: 'children,parent,requirements,fulfills'
-      });
     }
+
+    return this.get('store').findAll('component', {
+      include: 'children,parent,requirements,fulfills'
+    });
+  },
+  convertIds(ids) {
+    let types = Object.keys(ids);
+    let rel = this.get('db.rel');
+    let converted = [];
+
+    types.forEach(type => {
+      converted.pushObjects(ids[type].map(id => {
+        return rel.makeDocID({
+          "type": type,
+          "id": id
+        });
+      }));
+    });
+
+    return converted;
   }
 });

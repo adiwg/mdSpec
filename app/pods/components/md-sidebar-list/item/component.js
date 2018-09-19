@@ -129,7 +129,7 @@ export default Component.extend({
     orderOver() {
       let model = this.get('dragging.model');
 
-      if(!model || model.modelName !== 'component') return false;
+      if(!model || model.constructor.modelName !== 'component') return false;
 
       let notParent = !this.get('model.fullpath').includes(model.get('id'));
       let isSibling = this.get('model.parent.id') === model.get('parent.id');

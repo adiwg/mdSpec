@@ -55,15 +55,15 @@ const getParents = (item, acc) => {
 
 const getDescendants = (item, acc) => {
   let descendants = acc || {
-    components: [],
-    requirements: []
+    component: [],
+    requirement: []
   };
   let requirements = item.get('requirements');
 
-  descendants.components.pushObject(item.get('id'));
+  descendants.component.pushObject(item.get('id'));
 
   if(requirements && requirements.length) {
-    descendants.requirements.pushObjects(requirements.mapBy('id'));
+    descendants.requirement.pushObjects(requirements.mapBy('id'));
   }
 
   if(!item.get('children.length')) {
