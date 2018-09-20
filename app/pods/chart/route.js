@@ -46,7 +46,7 @@ export default Route.extend({
           id).get('title')) : [itm.get('title')]
 
         return {
-          title: title.length <=2  ? title.join('.') : title.slice(0, title.length - 1).join('.'),
+          title: title.length <=1  ? title.join('.') : title.slice(0, title.length - 1).join('.'),
           date: itm.get('startDate') || itm.get('minDate'),
           depth: title.length,
           data: [
