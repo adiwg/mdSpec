@@ -3609,7 +3609,7 @@
           let title = parents ? parents.map(id => data.findBy('id', id).get('title')) : [itm.get('title')];
 
           return {
-            title: title.length <= 2 ? title.join('.') : title.slice(0, title.length - 1).join('.'),
+            title: title.length <= 1 ? title.join('.') : title.slice(0, title.length - 1).join('.'),
             date: itm.get('startDate') || itm.get('minDate'),
             depth: title.length,
             data: [
@@ -5272,7 +5272,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("mdspec/app")["default"].create({"name":"mdspec","version":"0.1.0+41c735ac"});
+            require("mdspec/app")["default"].create({"name":"mdspec","version":"0.1.0+a943afc4"});
           }
         
 //# sourceMappingURL=mdspec.map
