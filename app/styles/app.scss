@@ -30,6 +30,27 @@
     color: inherit;
     text-decoration: none !important;
   }
+
+  .md-report {
+    .nav-item {
+      margin: 0;
+
+      &:not(.active) {
+        display: none;
+      }
+
+      .nav-link {
+        border: 0;
+        color: $primary;
+        font-size: x-large;
+        font-weight: 900;
+
+        &::after {
+          content: 'Report';
+        }
+      }
+    }
+  }
 }
 
 @import 'ember-basic-dropdown';
@@ -52,4 +73,10 @@
   position: relative;
   z-index: 1051;
   //margin-bottom: 2rem;
+}
+
+.md-report {
+  ol:first-child > li:first-child > div > .comp-title {
+    border-top: 0 !important;
+  }
 }

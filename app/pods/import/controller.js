@@ -37,8 +37,10 @@ export default Controller.extend({
 
         return;
       }
-
-      this.get('database').loadDb(file).catch(function (err) {
+console.log('loading');
+      this.get('database').loadDb(file).then(()=>{
+        console.log('done loading');
+      }).catch(function (err) {
         console.log('Error loading file!', err);
 
         self.set('error', 'Error loading file!');

@@ -19,7 +19,7 @@ export default Component.extend({
   over: false,
   order: false,
   isDragging: false,
-  collapsed: false,
+  collapsed: true,
   isOver: computed('isDragging', 'over', function () {
     return !this.get('isDragging') && this.get('over');
   }),

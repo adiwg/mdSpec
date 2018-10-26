@@ -53,8 +53,10 @@ export default Component.extend({
       //remove the req from components
       comp.get('fulfills').then((fulfills) => {
         fulfills.map((req) => {
-          req.get('fulfilledBy').removeObject(comp);
-          promises.pushObject(req.save());
+          if(req){
+            req.get('fulfilledBy').removeObject(comp);
+            promises.pushObject(req.save());
+          }
         });
       });
 

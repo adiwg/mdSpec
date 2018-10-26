@@ -8,6 +8,8 @@ export default Component.extend({
   // classNameBindings: ['over:drag-over'],
 
   over: false,
+  requirementsOnly: false,
+  hideRequirements: false,
   type: computed('parentItem', function () {
     let parent = this.get('parentItem');
 
@@ -31,6 +33,10 @@ export default Component.extend({
     let pad = this.get('level') + 1;
 
     return htmlSafe('padding-left: ' + pad + 'rem;');
+  }),
+
+  hidden: computed('requirementsOnly','model.descendants.requirement.[]', function() {
+    return this.get('requirementsOnly') && !this.get('model.descendants.requirement.length');
   }),
 
   didReceiveAttrs() {

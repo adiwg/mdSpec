@@ -1,5 +1,12 @@
 {{#each (sort-by "order" modules) as |mod index|}}
-  {{md-report/component model=mod parentItem=parentItem index=index sections=sections}}
+  {{md-report/component
+    model=mod
+    parentItem=parentItem
+    index=index
+    sections=sections
+    hideRequirements=hideRequirements
+    requirementsOnly=requirementsOnly
+  }}
   {{else}}
   <li>
     <div class="alert alert-warning text-center mb-auto mx-auto">
