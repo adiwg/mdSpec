@@ -10,6 +10,31 @@
     placeholder="Choose one" label="Required?" options=presenceOpts as |el|}}
     {{el.control searchEnabled=false}}
   {{/form.element}}
+  {{#if model.parent}}
+    <div class="form-group row">
+      <label class="col-form-label col-md-4">Dates</label>
+      <div class="col-sm-7 offset-sm-1 col-md-8 offset-md-0 row no-gutters">
+        <div class="col-lg mr-lg-4">
+          <div class="row form-group">
+            <label class="col-form-label col-md-4">Start</label>
+            <div class="col-md-8">
+              {{date-picker buttonClasses="btn" options=true
+              value=(if model.startDate (moment model.startDate) null) action=(action "setDate" "startDate") maxDate=(moment model.endDate)}}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg">
+          <div class="row form-group">
+            <label class="col-form-label col-md-4">End</label>
+            <div class="col-md-8">
+              {{date-picker buttonClasses="btn" options=true
+              value=(if model.endDate (moment model.endDate) null) action=(action "setDate" "endDate") minDate=(moment model.startDate)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
   {{form.element controlType="textarea" label="Mapping" property="mapping" placeholder="Related path in metadata standard, e.g. mdJSON"}}
   {{form.element controlType="checkbox" label="Not Mappable?" property="notMappable"}}
   {{!-- {{form.element controlType="checkbox" label="Is property?" property="isProperty"}} --}}

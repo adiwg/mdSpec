@@ -22,31 +22,32 @@
   width: 300px;
 
   .sidebar-sticky {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 65px);
     overflow-x: hidden;
     overflow-y: auto;
     position: sticky;
     top: 60px;
 
-    // .list-group-item {
-    //   padding-left: .75rem;
-    // }
-
     .list-group-item {
       padding: 0;
+      border-color: $gray-300;
 
       &.drag-over {
         background-color: $warning;
 
-        .md-item-wrapper {
-          background-color: inherit;
+         > .md-item-wrapper {
+          background-color: inherit !important;
         }
       }
 
       .md-item-wrapper {
         color: $primary;
-        padding-bottom: .75rem;
-        padding-top: .75rem;
+        padding-top: .15rem;
+
+        .md-item {
+          padding-bottom: .6rem;
+          padding-top: .6rem;
+        }
 
         .text-level {
           color: $gray-500;
@@ -54,6 +55,7 @@
 
         .icon:hover {
           color: $warning;
+          cursor: pointer;
         }
 
         &:hover {
@@ -66,10 +68,24 @@
           color: $white;
           cursor: default;
 
+          .fulfills {
+            color: $white !important;
+          }
+
           .text-level {
             color: $gray-300;
           }
         }
+      }
+    }
+
+    .sidebar-order {
+      height: .15rem;
+      transition: all .2s linear;
+
+      &.over {
+        background-color: $gray-300;
+        height: 2.75rem;
       }
     }
   }

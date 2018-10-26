@@ -48,9 +48,11 @@
     "ember-composable-helpers": "^2.1.0",
     "ember-cp-validations": "^4.0.0-beta.1",
     "ember-data": "~3.2.0",
+    "ember-date-components": "^1.2.0",
     "ember-drag-drop": "^0.4.8",
     "ember-export-application-global": "^2.0.0",
     "ember-file-upload": "^2.5.0",
+    "ember-google-charts": "^1.5.3",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^7.7.0",
@@ -68,9 +70,11 @@
     "jquery-resizable-dom": "^0.32.0",
     "loader.js": "^4.2.3",
     "memorystream": "^0.3.1",
+    "mudder": "^1.0.4",
     "pouchdb-load": "^1.4.6",
     "pouchdb-replication-stream": "^1.2.9",
-    "qunit-dom": "^0.6.2"
+    "qunit-dom": "^0.6.2",
+    "save-svg-as-png": "^1.4.6"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

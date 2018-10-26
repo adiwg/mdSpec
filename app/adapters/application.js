@@ -11,10 +11,12 @@ import {
   isEmpty
 } from '@ember/utils';
 import load from 'pouchdb-load';
+
+const console = window.console;
+
 PouchDB.plugin({
   loadIt: load.load
 });
-
 PouchDB.plugin(replicationStream.plugin);
 PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
@@ -40,7 +42,11 @@ function createDb() {
 export default Adapter.extend({
   init() {
     this._super(...arguments);
-    this.set('db', createDb());
+
+    let db = createDb();
+    this.set('mainDb', db);
+    this.set('db', db);
+    this.destroyImportDb();
 
     //console.log(this.get('db').allDocs({include_docs: true, attachments: true}));
   },
@@ -55,5 +61,21 @@ export default Adapter.extend({
 
   destroyDb() {
     return this.get('db').destroy();
+  },
+
+  destroyImportDb() {
+    let db = this.get('importDb');
+    let self = this;
+
+    if(!db) {
+      this.set('importDb', new PouchDB('importSpecs'));
+      return;
+    }
+
+    return this.get('importDb').destroy().then(function () {
+      self.set('importDb', new PouchDB('importSpecs'));
+    }).catch(function (err) {
+      console.log(err);
+    });
   }
 });

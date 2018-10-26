@@ -1,9 +1,16 @@
-{{#each modules as |mod index|}}
-  {{md-report/component model=mod parentItem=parentItem index=index}}
+{{#each (sort-by "order" modules) as |mod index|}}
+  {{md-report/component
+    model=mod
+    parentItem=parentItem
+    index=index
+    sections=sections
+    hideRequirements=hideRequirements
+    requirementsOnly=requirementsOnly
+  }}
   {{else}}
   <li>
     <div class="alert alert-warning text-center mb-auto mx-auto">
-      <h1>{{fa-icon "exclamation-triangle"}} Nothing to report: {{path}}</h1>
+      <h1>{{fa-icon "exclamation-triangle"}} Nothing to report</h1>
       <p>You need to create some modules first.</p>
     </div>
   </li>

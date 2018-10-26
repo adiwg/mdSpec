@@ -1,36 +1,14 @@
 {{#bs-navbar fluid=true toggleBreakpoint="md" position="sticky-top" class="main-nav"
  type="dark" backgroundColor="primary" as |navbar|}}
-  {{#link-to "index" class="navbar-brand"}}{{fa-icon "pen-square"}} mdSpec{{/link-to}}
+  {{#link-to "index" class="navbar-brand mr-5"}}{{fa-icon "pen-square"}} mdSpec{{/link-to}}
   {{navbar.toggle}}
   {{#navbar.content}}
-    {{#navbar.nav class="mr-5" as |nav|}}
-      {{#nav.item}}{{#nav.link-to "index"}}Getting Started{{/nav.link-to}}{{/nav.item}}
-      {{#nav.item}}{{#nav.link-to "report"}}Report{{/nav.link-to}}{{/nav.item}}
-      {{!-- {{#nav.item}}{{#nav.link-to "index"}}Components{{/nav.link-to}}{{/nav.item}}
-      {{#nav.item}}<a href="/api" class="nav-link">API</a>{{/nav.item}} --}}
-    {{/navbar.nav}}
     {{#navbar.nav class="mr-auto" as |nav|}}
-      {{#nav.item class="mr-2"}}
-        {{#bs-button type="outline-light" onClick=(action "saveDb")}}
-          {{fa-icon "download"}} <span class="align-middle">Save</span>
-        {{/bs-button}}
-      {{/nav.item}}
-      {{#nav.item}}
-        {{#file-upload name="db"
-           accept="application/json" multiple=true
-           onfileadd=(action "loadDb") as |queue|}}
-           <a class="btn btn-outline-light">
-             {{#if queue.files.length}}
-               Loading...
-             {{else}}
-               {{fa-icon "upload"}} <span class="align-middle">Load</span>
-             {{/if}}
-           </a>
-        {{!-- {{#bs-button type="outline-light"}}
-          {{fa-icon "upload"}} Load
-        {{/bs-button}} --}}
-        {{/file-upload}}
-      {{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "index"}}{{fa-icon "home"}} <span class="align-middle">Intro</span>{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "report"}}{{fa-icon "file-alt"}} <span class="align-middle">Report</span>{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "chart"}}{{fa-icon "chart-bar"}} <span class="align-middle">Chart</span>{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "save"}}{{fa-icon "download"}} <span class="align-middle">Save</span>{{/nav.link-to}}{{/nav.item}}
+      {{#nav.item}}{{#nav.link-to "import"}}{{fa-icon "upload"}} <span class="align-middle">Load</span>{{/nav.link-to}}{{/nav.item}}
     {{/navbar.nav}}
     {{#navbar.nav as |nav|}}
       {{#nav.item}}{{#nav.link-to "settings"}}{{fa-icon "cogs"}} Settings{{/nav.link-to}}{{/nav.item}}
@@ -48,9 +26,6 @@
         {{#bs-nav type="" justified=true class="sticky-top p-2 bg-light" as |nav|}}
           {{#nav.item}}
             {{#nav.item}}{{#nav.link-to "module.new"}}{{fa-icon "plus"}} Create Module{{/nav.link-to}}{{/nav.item}}
-            {{!-- {{#bs-button type="success" icon="fa fa-plus" onClick=(action "createModule")}}
-              {{fa-icon "plus"}} Create Module
-            {{/bs-button}} --}}
           {{/nav.item}}
         {{/bs-nav}}
         {{md-sidebar-list model=modules}}

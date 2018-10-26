@@ -21,12 +21,15 @@ Router.map(function () {
       path: '/:component_id'
     }, function() {});
   });
+  //this.route('error');
+  this.route('report');
+  this.route('settings');
+  this.route('chart');
   this.route('not-found', {
     path: '/*path'
   });
-  this.route('error');
-  this.route('report');
-  this.route('settings');
+  this.route('save');
+  this.route('import');
 });
 
 export default Router;

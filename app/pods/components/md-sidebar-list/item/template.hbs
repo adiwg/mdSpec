@@ -1,27 +1,41 @@
-{{#draggable-object content=this dragHandle=".js-dragHandle"}}
-{{#draggable-object-target action="dropIt" dragOverAction="dragOver" dragOutAction="dragOut"}}
-  {{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper d-flex justify-content-between align-items-center pr-1"}}
-  <div class="{{if draggable "js-dragHandle dragHandle icon" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
-  {{#if collapsible}}
-    <div class="d-inline-flex ml-2 icon" onClick={{action "toggleCollapse"}}>
-      {{fa-icon (if collapsed "folder" "folder-open") fixedWidth=true}}
-    </div>
-  {{else}}
-    <div class="d-inline-flex ml-2">
-      <i class="fa-fw d-inline-block"></i>
-    </div>
-  {{/if}}
-  <div class="text-truncate flex-grow-1" style={{padding}}>
-    <span class="text-level">{{levelText}}</span> {{model.title}}
-  </div>
-  <span class="badge badge-{{model.fulfilledStyle}} badge-pill">{{model.fulfilled.length}}/{{model.requirements.length}}</span>
+{{!-- {{log (concat model.title ":" model.order)}} --}}
+{{#draggable-object content=this dragHandle=".js-dragHandle"
+  dragStartAction=(action "dragStartAction")
+  dragEndAction=(action "dragEndAction")
+}}
+  {{#link-to (concat type ".edit") model tagName="div" class="md-item-wrapper"}}
+    {{#draggable-object-target class="md-item d-flex justify-content-between align-items-center pr-1"
+      action="dropIt"
+      validateDragEvent=(action "validateDragEvent" "sidebar")
+      dragOverAction=(action "dragOver") dragOutAction="dragOut"
+    }}
+      <div class="{{if draggable "js-dragHandle dragHandle icon" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
+      {{#if collapsible}}
+        <div class="d-inline-flex ml-2 icon" onClick={{action "toggleCollapse"}}>
+          {{fa-icon (if collapsed "folder" "folder-open") fixedWidth=true}}
+        </div>
+      {{else}}
+        <div class="d-inline-flex ml-2">
+          <i class="fa-fw d-inline-block"></i>
+        </div>
+      {{/if}}
+      <div class="text-truncate flex-grow-1" style={{padding}}>
+        <span class="text-level">{{levelText}}</span> {{model.title}}
+      </div>
+      {{#if model.fulfills.length}}<span class="badge badge-pill text-success bg-transparent fulfills">{{fa-icon "check"}}</span>{{/if}}
+      <span class="badge badge-{{model.fulfilledStyle}} badge-pill">{{model.fulfilled.length}}/{{model.requirements.length}}</span>
+    {{/draggable-object-target}}
+
+    {{#draggable-object-target class=(concat "sidebar-order " (if order "over"))
+    action="orderIt" dragOverAction="orderOver" dragOutAction="orderOut"}}
+    {{!-- <div ></div> --}}
+    {{/draggable-object-target}}
   {{/link-to}}
-{{/draggable-object-target}}
 {{/draggable-object}}
 
 {{#if model.children.length}}
 {{#bs-collapse collapsed=collapsed class="list-group-item"}}
-  {{md-sidebar-list model=model.children parentItem=this}}
+  {{md-sidebar-list model=model.children parentItem=this dragging=dragging}}
 {{/bs-collapse}}
 {{/if}}
 {{!-- {{#each model.children as |child|}}

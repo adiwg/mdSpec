@@ -1,1 +1,24 @@
-{{md-report model=model class="p-0"}}
+<div class="md-report">
+{{#bs-tab as |tab|}}
+  {{#tab.pane title="Full"}}
+    {{md-report
+      model=model
+      class="p-0"
+    }}
+  {{/tab.pane}}
+  {{#tab.pane title="Components"}}
+    {{md-report
+      model=model
+      class="p-0"
+      hideRequirements=true
+    }}
+  {{/tab.pane}}
+  {{#tab.pane title="Requirements"}}
+    {{md-report
+      model=model
+      class="p-0"
+      requirementsOnly=true
+    }}
+  {{/tab.pane}}
+{{/bs-tab}}
+</div>
