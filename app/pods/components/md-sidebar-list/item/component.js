@@ -12,6 +12,12 @@ import {
 import Mudder from 'mudder';
 
 export default Component.extend({
+  init() {
+    this._super(...arguments);
+
+    this.collapsed = !!this.model.parent;
+  },
+
   tagName: 'li',
   classNames: ['list-group-item'],
   classNameBindings: ['isOver:drag-over', 'notDroppable'],
@@ -19,7 +25,7 @@ export default Component.extend({
   over: false,
   order: false,
   isDragging: false,
-  collapsed: true,
+  //collapsed: false,
   isOver: computed('isDragging', 'over', function () {
     return !this.get('isDragging') && this.get('over');
   }),
