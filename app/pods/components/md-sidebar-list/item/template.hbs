@@ -10,16 +10,16 @@
       dragOverAction=(action "dragOver") dragOutAction="dragOut"
     }}
       <div class="{{if draggable "js-dragHandle dragHandle icon" "text-secondary cursor-not"}} d-inline-flex ml-2">{{fa-icon "bars"}}</div>
-      {{#if collapsible}}
-        <div class="d-inline-flex ml-2 icon" onClick={{action "toggleCollapse"}}>
-          {{fa-icon (if collapsed "folder" "folder-open") fixedWidth=true}}
-        </div>
-      {{else}}
-        <div class="d-inline-flex ml-2">
-          <i class="fa-fw d-inline-block"></i>
-        </div>
-      {{/if}}
       <div class="text-truncate flex-grow-1" style={{padding}}>
+        {{#if collapsible}}
+          <div class="d-inline ml-2 icon" onClick={{action "toggleCollapse"}}>
+            {{fa-icon (if collapsed "folder" "folder-open") fixedWidth=true}}
+          </div>
+        {{else}}
+          <div class="d-inline-flex ml-2">
+            <i class="fa-fw d-inline-block"></i>
+          </div>
+        {{/if}}
         <span class="text-level">{{levelText}}</span> {{model.title}}
       </div>
       {{#if model.fulfills.length}}<span class="badge badge-pill text-success bg-transparent fulfills">{{fa-icon "check"}}</span>{{/if}}
