@@ -36,7 +36,7 @@ export default Component.extend({
       //return true;
     }),
   collapsible: computed('type', 'model.children.[]', function () {
-    return this.get('type') === 'module' && this.get(
+    return /*this.get('type') === 'module' &&*/ this.get(
       'model.children.length');
   }),
   type: computed('parentItem', function () {
@@ -59,7 +59,7 @@ export default Component.extend({
   }),
 
   padding: computed('level', function () {
-    let pad = this.get('level') + 1;
+    let pad = this.get('level');
 
     return htmlSafe('padding-left: ' + pad + 'rem;');
   }),
